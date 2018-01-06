@@ -1,9 +1,11 @@
 <!doctype html>
 <!--
- This page is shown when the extension is called on a website that is not Cardsphere".
+
  -->
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+
     <title>Cardsphere Updates</title>
     <style type="text/css">
       body {
@@ -21,17 +23,22 @@
         justify-content: space-between;
       }
     </style>
-    <script src="popup.js"></script>
+    <script src="error.js"></script>
 
   </head>
 
   <body>
     <h1>Cardsphere Updates</h1>
-    <div id="container">
-      <span>Not on Cardsphere's site! Load the send page to use this extension.</span>
+    <div id="text">
+      <!-- this will contain the error message, if necessary -->
     </div>
-    <div id="url">
-      
+    <div id="buttons" style="display: none;">
+      <!-- hidden if not on the correct page -->
+      <div class="btn-group">
+        <a href="#" class="btn btn-primary">Store</a>
+        <a href="#" class="btn btn-primary">Highlight</a>
+      </div>
+    </div>
     </div>
   </body>
 </html>

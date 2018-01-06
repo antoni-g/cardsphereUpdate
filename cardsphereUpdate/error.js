@@ -28,6 +28,17 @@ function getCurrentTabUrl(callback) {
   });
 }
 
-document.loadURL('DOMContentLoaded', () =. {
-
+document.addEventListener('DOMContentLoaded', () => {
+	getCurrentTabUrl((tgt) => {
+    	var textSpace = document.getElementById('text');
+    	if (!(tgt === 'https://www.cardsphere.com/send')) {
+    		// display error message if not on the cardsphere site
+    		var error ='<span>Not on Cardsphere\'s site! Load the send page to use this extension.</span><br>';
+    		textSpace.innerHTML += error;
+    	} else {
+    		// else show the correct buttons when on the cardsphere site
+    		document.getElementById('buttons').style.display = 'block';
+    	}
+    	textSpace.innerHTML += '<span>Current site: '+ tgt +'</span>';
+    });
 });

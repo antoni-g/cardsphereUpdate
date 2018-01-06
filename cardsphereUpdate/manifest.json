@@ -4,7 +4,6 @@
   "name": "Cardsphere Update",
   "description": "This extension allows the user to change the background color of packages on the cardsphere send page that are new or different than any packages displayed the last time the user visited the page.",
   "version": "1.0.0",
-   "default_locale": "en",
 
   "browser_action": {
     "default_icon": "logo.png",
