@@ -1,11 +1,11 @@
 <!doctype html>
 <!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
+
  -->
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+
     <title>Cardsphere Updates</title>
     <style type="text/css">
       body {
@@ -23,27 +23,22 @@
         justify-content: space-between;
       }
     </style>
-
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-    -->
     <script src="popup.js"></script>
+
   </head>
 
   <body>
-    <h1>Background Color Changer</h1>
-    <div id="container">
-      <span>Choose a color</span>
-      <select id="dropdown">
-        <option selected disabled hidden value=''></option>
-        <option value="white">White</option>
-        <option value="pink">Pink</option>
-        <option value="green">Green</option>
-        <option value="yellow">Yellow</option>
-      </select>
+    <h1>Cardsphere Updates</h1>
+    <div id="text">
+      <!-- this will contain the error message, if necessary -->
+    </div>
+    <div id="buttons" style="display: none;">
+      <!-- hidden if not on the correct page -->
+      <div class="btn-group">
+        <a href="#" class="btn btn-primary">Store</a>
+        <a href="#" class="btn btn-primary">Highlight</a>
+      </div>
+    </div>
     </div>
   </body>
 </html>

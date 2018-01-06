@@ -7,7 +7,7 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*/*"],
+      "matches": ["https://www.cardsphere.com/send*"],
       "js": ["insert_script.js"]
     }
   ],

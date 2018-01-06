@@ -1,3 +1,33 @@
-var pack = document.getElementById('filter-btn');
-pack.innerHTML = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on XXXXXXX)</font>';
-console.log('executing info insertion script');
+// check current packages against those that were stored and compare
+var updated = false;
+var packages = document.getElementById('packages cs-row');
+chrome.storage.sync.get('last_saved', function(res) {
+	// error check, see if there is no data in storage, else retreive date
+	if (chrome.runtime.lastError) {
+		// TODO: proper error check. How to even get error?
+	}
+	else if (res[0] === undefined) {
+		// do nothing
+	}
+	else {
+		// iterate through
+	}
+});
+
+// display the date of the last time packages were saved
+var msg;
+chrome.storage.sync.get('last_accessed', function(res) {
+	// error check, see if there is no data in storage, else retreive date
+	if (res[0] === undefined) {
+		msg = '<span class="caret"></span> Package Controls <font color="red">(No data stored for CSUpdate! Use the extension to save data for a comparison)</font>';
+	}
+	else if (!updated) {
+		msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+res+'. There have been no changes.)</font>';
+	}
+	else {
+		msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+res+')</font>';
+	}
+	var top = document.getElementById('filter-btn');
+	top.innerHTML = msg;
+});
+
