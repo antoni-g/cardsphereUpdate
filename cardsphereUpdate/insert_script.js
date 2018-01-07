@@ -1,3 +1,4 @@
+
 // check current packages against those that were stored and compare
 var updated = false;
 var packages = document.getElementById('packages cs-row');
@@ -10,7 +11,11 @@ chrome.storage.sync.get('last_saved', function(res) {
 		// do nothing
 	}
 	else {
-		// iterate through
+		// iterate through each package listed on CS and lookup in returned hashmap
+		$(document).ready(function () {
+  			var packags = $(".package");
+  			
+		});
 	}
 });
 

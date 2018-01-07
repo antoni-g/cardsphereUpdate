@@ -5,10 +5,14 @@
   "description": "This extension allows the user to change the background color of packages on the cardsphere send page that are new or different than any packages displayed the last time the user visited the page.",
   "version": "1.0.0",
 
+  "background":
+    {
+        "scripts": ["jquery-3.2.1.min.js"]
+    },
   "content_scripts": [
     {
       "matches": ["https://www.cardsphere.com/send*"],
-      "js": ["insert_script.js"]
+      "js": ["jquery-3.2.1.min.js","insert_script.js"]
     }
   ],
   "browser_action": {
