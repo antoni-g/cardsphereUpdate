@@ -7,14 +7,19 @@ chrome.storage.sync.get('last_saved', function(res) {
 	if (chrome.runtime.lastError) {
 		// TODO: proper error check. How to even get error?
 	}
-	else if (res[0] === undefined) {
-		// do nothing
-	}
+	// else if (res[0] === undefined) {
+	// 	// do nothing, not updated
+	// }
 	else {
 		// iterate through each package listed on CS and lookup in returned hashmap
 		$(document).ready(function () {
-  			var packags = $(".package");
-  			
+			console.log("ready");
+  			$(".package").each(function(index,value) {
+  				console.log(value);
+  				// check by username
+  				var check = $(value).find(".with-bg");
+  				console.log($(check[0]).find().);
+  			});
 		});
 	}
 });
