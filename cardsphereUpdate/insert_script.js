@@ -13,12 +13,14 @@ chrome.storage.sync.get('last_saved', function(res) {
 	else {
 		// iterate through each package listed on CS and lookup in returned hashmap
 		$(document).ready(function () {
-			console.log("ready");
   			$(".package").each(function(index,value) {
-  				console.log(value);
-  				// check by username
-  				var check = $(value).find(".with-bg");
-  				console.log($(check[0]).find().);
+  				// check by heading
+  				var heading = $(value).find(".package-heading");
+  				var username = $($(heading).children()[0]).find("a").text();
+  				var price = $($(heading).children()[1]).find("strong").text();
+  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
+  				// else check package contents (is this going to be too slow?)
+  				var contents =  $(value).find(".package-body").text();
   			});
 		});
 	}
