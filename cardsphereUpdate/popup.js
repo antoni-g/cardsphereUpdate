@@ -33,10 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function savePackages() {
+    // TODO - fix this. the scope of this document is the popup, not cardsphere
     var packages = document.getElementById('packages cs-row');
     var saved = {};
     $(document).ready(function () {
         $(".package").each(function(index,value) {
+            console.log('adding package');
             var heading = $(value).find(".package-heading");
             var username = $($(heading).children()[0]).find("a").text();
             var price = $($(heading).children()[1]).find("strong").text();
@@ -44,6 +46,7 @@ function savePackages() {
             var contents =  $(value).find(".package-body").text();
             saved.username = {price,efficiency,contents};
         });
+        console.log(JSON.stringify(saved));
         chrome.storage.sync.set({'saved': saved}, function() {});
         var d = new Date();
         chrome.storage.sync.set({'last_accessed': d.toString()}, function() {});
