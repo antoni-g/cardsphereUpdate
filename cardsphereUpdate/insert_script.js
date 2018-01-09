@@ -30,14 +30,16 @@ chrome.storage.sync.get('saved', function(res) {
 var msg;
 chrome.storage.sync.get('last_accessed', function(res) {
 	// error check, see if there is no data in storage, else retreive date
-	if (res[0] === undefined) {
+	// TODO format this time string better
+	var time = res.last_accessed;
+	if (res === undefined) {
 		msg = '<span class="caret"></span> Package Controls <font color="red">(No data stored for CSUpdate! Use the extension to save data for a comparison)</font>';
 	}
 	else if (!updated) {
-		msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+res+'. There have been no changes.)</font>';
+		msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+time+'. There have been no changes.)</font>';
 	}
 	else {
-		msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+res+')</font>';
+		msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+time+')</font>';
 	}
 	var top = document.getElementById('filter-btn');
 	top.innerHTML = msg;

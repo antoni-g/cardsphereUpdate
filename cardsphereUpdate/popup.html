@@ -24,7 +24,7 @@
       }
     </style>
     <script src="jquery-3.2.1.min.js"></script>
-    <script src="popup.js"></script>
+    <script type='text/javascript' src="popup.js"></script>
 
   </head>
 
@@ -36,7 +36,14 @@
     <div id="buttons" style="display: none;">
       <!-- hidden if not on the correct page -->
       <div class="btn-group">
-        <a href="#" class="btn btn-primary">Store</a>
+        <a id="save" href="#" class="btn btn-primary">Store</a>
+      </div>
+      <div class="btn-group" id="testing">
+        <a id="disp_mem" href="#" class="btn btn-primary">Print</a>
+      </div>
+      <div id='alert' style="display: none;">
+        <!-- hidden if not on the correct page -->
+        Saved!
       </div>
     </div>
     </div>
