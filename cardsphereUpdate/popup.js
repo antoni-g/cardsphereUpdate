@@ -51,6 +51,10 @@ function savePackages() {
         var d = new Date();
         chrome.storage.sync.set({'last_accessed': d.toString()}, function() {});
         document.getElementById('alert').style.display = 'block';
+        $('#alert').text('Saved! At '+d.toString());
+        $('#alert').click(function() {
+            document.getElementById('alert').style.display = 'none';
+        });
     });
 }
 
