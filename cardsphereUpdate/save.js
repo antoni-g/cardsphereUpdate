@@ -10,10 +10,11 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     		var contents =  $(value).find(".package-body").text();
 
     		saved[username] = {price,efficiency,contents};
+        console.log('Saving ' + username);
     	});
-    	chrome.storage.sync.set({'saved': saved}, function() {});
+    	chrome.storage.local.set({'saved': saved}, function() {});
     	var d = new Date();
-    	chrome.storage.sync.set({'last_accessed': d.toString()}, function() {});
+    	chrome.storage.local.set({'last_accessed': d.toString()}, function() {});
     	console.log("Saved, " + d.toString());
       console.log(saved);
   });

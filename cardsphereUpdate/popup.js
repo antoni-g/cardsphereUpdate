@@ -54,10 +54,10 @@ function savePackages() {
 // helper method
 function printMem() {
     console.log('printing mem');
-    chrome.storage.sync.get('saved', function(res) {
+    chrome.storage.local.get('saved', function(res) {
         console.log(res);
     });
-    chrome.storage.sync.get('last_accessed', function(res) {
+    chrome.storage.local.get('last_accessed', function(res) {
         console.log(res);
     });
 }

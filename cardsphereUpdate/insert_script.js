@@ -2,7 +2,7 @@
 // check current packages against those that were stored and compare
 var updated = false;
 var packages = document.getElementById('packages cs-row');
-chrome.storage.sync.get('saved', function(res) {
+chrome.storage.local.get('saved', function(res) {
 	// error check, see if there is no data in storage, else retreive date
 	if (chrome.runtime.lastError) {
 		// TODO: proper error check. How to even get error?
@@ -28,7 +28,7 @@ chrome.storage.sync.get('saved', function(res) {
 
 // display the date of the last time packages were saved
 var msg;
-chrome.storage.sync.get('last_accessed', function(res) {
+chrome.storage.local.get('last_accessed', function(res) {
 	// error check, see if there is no data in storage, else retreive date
 	// TODO format this time string better
 	var time = res.last_accessed;
