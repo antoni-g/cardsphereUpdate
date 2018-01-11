@@ -32,29 +32,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function savePackages() {
-    // TODO - fix this. the scope of this document is the popup, not cardsphere
-    var packages = document.getElementById('packages cs-row');
-    var saved = {};
-    $(document).ready(function () {
-        $(".package").each(function(index,value) {
-            console.log('adding package');
-            var heading = $(value).find(".package-heading");
-            var username = $($(heading).children()[0]).find("a").text();
-            var price = $($(heading).children()[1]).find("strong").text();
-            var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
-            var contents =  $(value).find(".package-body").text();
-            saved.username = {price,efficiency,contents};
+function savePackages() { 
+    // send dmessage to save.js content script
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
+            console.log('Saved.');
         });
-        console.log(JSON.stringify(saved));
-        chrome.storage.sync.set({'saved': saved}, function() {});
-        var d = new Date();
-        chrome.storage.sync.set({'last_accessed': d.toString()}, function() {});
-        document.getElementById('alert').style.display = 'block';
-        $('#alert').text('Saved! At '+d.toString());
-        $('#alert').click(function() {
-            document.getElementById('alert').style.display = 'none';
-        });
+    });
+
+    var d = new Date();
+    document.getElementById('alert').style.display = 'block';
+    $('#alert').text('Saved! At '+d.toString());
+    $('#alert').hover(function() {
+        $(this).css('color', 'red');
+    });
+    $('#alert').click(function() {
+        document.getElementById('alert').style.display = 'none';
     });
 }
 

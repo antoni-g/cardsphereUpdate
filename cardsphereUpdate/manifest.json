@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.cardsphere.com/send"],
-      "js": ["jquery-3.2.1.min.js","insert_script.js"]
+      "js": ["jquery-3.2.1.min.js","insert_script.js","save.js"]
     }
   ],
   "browser_action": {
