@@ -16,11 +16,20 @@ chrome.storage.local.get('saved', function(res) {
   			$(".package").each(function(index,value) {
   				// check by heading
   				var heading = $(value).find(".package-heading");
+  				//first check user
   				var username = $($(heading).children()[0]).find("a").text();
+  				// then price
   				var price = $($(heading).children()[1]).find("strong").text();
+  				// then efficiency 
   				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
   				// else check package contents (is this going to be too slow?)
   				var contents =  $(value).find(".package-body").text();
+
+  				//change color of package
+  				console.log('changing color of ' + username);
+  				$(value).find('.package-heading').css("background", '#ff6d6d');
+  				$(value).find('.package-body').css("background", '#ffb7b7');
+  				$(value).find('.package-footer').css("background", '#ffb7b7');
   			});
 		});
 	}
