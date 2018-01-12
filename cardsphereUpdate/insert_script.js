@@ -16,24 +16,44 @@ chrome.storage.local.get('saved', function(res) {
   			$(".package").each(function(index,value) {
   				// check by heading
   				var heading = $(value).find(".package-heading");
-  				//first check user
+  				var changing = false;
+  				//find elements
   				var username = $($(heading).children()[0]).find("a").text();
-  				// then price
   				var price = $($(heading).children()[1]).find("strong").text();
-  				// then efficiency 
   				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
-  				// else check package contents (is this going to be too slow?)
   				var contents =  $(value).find(".package-body").text();
-
-  				//change color of package
-  				console.log('changing color of ' + username);
-  				console.log($(value.firstElementChild).attr('class'));
-  				if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
-  					console.log($(value).find('package-heading'));
-  					$(value).find('.package-heading').css("background", '#ff6d6d');
+  				//first check user
+  				if (res.saved[username] === undefined) {
+  					console.log(username + ' not present');
+  					changing = true;
   				}
-  				$(value).find('.package-body').css("background", '#ffb7b7');
-  				$(value).find('.package-footer').css("background", '#ffb7b7');
+  				// then price
+  				else if (res.saved[username].price !== price) {
+  					console.log('price difference for ' + username + ' : ' + price + ' now to ' + res.saved[username].price);
+  					changing = true;
+  				}
+  				// then efficiency 
+  				else if (res.saved[username].efficiency !== efficiency) {
+  					console.log('efficiency difference for ' + username + ' : ' + efficiency + ' now to ' + res.saved[username].efficiency);
+  					changing = true;
+  				}
+  				// else check package contents (is this going to be too slow?)
+  				else if (res.saved[username].contents !== contents) {
+  					console.log('contents difference for ' + username);
+  					changing = true;
+  				}
+
+  				if (changing) {
+	  				// then  change color of package
+	  				console.log('changing color of ' + username);
+	  				console.log($(value.firstElementChild).attr('class'));
+	  				if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
+	  					console.log($(value).find('package-heading'));
+	  					$(value).find('.package-heading').css("background", '#ff6d6d');
+	  				}
+	  				$(value).find('.package-body').css("background", '#ffb7b7');
+	  				$(value).find('.package-footer').css("background", '#ffb7b7');
+	  			}
   			});
 		});
 	}

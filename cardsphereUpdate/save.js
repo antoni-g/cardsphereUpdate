@@ -9,7 +9,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     		var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
     		var contents =  $(value).find(".package-body").text();
 
-    		saved[username] = {price,efficiency,contents};
+    		saved[username] = {'price': price, 'efficiency': efficiency,'contents': contents};
         console.log('Saving ' + username);
     	});
     	chrome.storage.local.set({'saved': saved}, function() {});
