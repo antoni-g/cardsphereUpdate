@@ -27,7 +27,11 @@ chrome.storage.local.get('saved', function(res) {
 
   				//change color of package
   				console.log('changing color of ' + username);
-  				$(value).find('.package-heading').css("background", '#ff6d6d');
+  				console.log($(value.firstElementChild).attr('class'));
+  				if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
+  					console.log($(value).find('package-heading'));
+  					$(value).find('.package-heading').css("background", '#ff6d6d');
+  				}
   				$(value).find('.package-body').css("background", '#ffb7b7');
   				$(value).find('.package-footer').css("background", '#ffb7b7');
   			});
