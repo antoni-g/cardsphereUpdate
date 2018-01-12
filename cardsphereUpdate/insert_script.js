@@ -21,7 +21,7 @@ chrome.storage.local.get('saved', function(res) {
   				var username = $($(heading).children()[0]).find("a").text();
   				var price = $($(heading).children()[1]).find("strong").text();
   				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
-  				var contents =  $(value).find(".package-body").text();
+  				var contents =  $(value).find(".package-body").text().hashCode();
   				//first check user
   				if (res.saved[username] === undefined) {
   					console.log(username + ' not present');
