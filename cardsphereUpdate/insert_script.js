@@ -1,6 +1,7 @@
 
 // check current packages against those that were stored and compare
 var updated = false;
+var count = 0;
 var packages = document.getElementById('packages cs-row');
 chrome.storage.local.get('saved', function(res) {
 	// error check, see if there is no data in storage, else retreive date
@@ -26,21 +27,29 @@ chrome.storage.local.get('saved', function(res) {
   				if (res.saved[username] === undefined) {
   					console.log(username + ' not present');
   					changing = true;
+  					updated = true;
+					count++;
   				}
   				// then price
   				else if (res.saved[username].price !== price) {
   					console.log('price difference for ' + username + ' : ' + price + ' now to ' + res.saved[username].price);
   					changing = true;
+  					updated = true;
+					count++;
   				}
   				// then efficiency 
   				else if (res.saved[username].efficiency !== efficiency) {
   					console.log('efficiency difference for ' + username + ' : ' + efficiency + ' now to ' + res.saved[username].efficiency);
   					changing = true;
+  					updated = true;
+					count++;
   				}
   				// else check package contents (is this going to be too slow?)
   				else if (res.saved[username].contents !== contents) {
   					console.log('contents difference for ' + username);
   					changing = true;
+  					updated = true;
+					count++;
   				}
 
   				if (changing) {
@@ -55,26 +64,28 @@ chrome.storage.local.get('saved', function(res) {
 	  				$(value).find('.package-footer').css("background", '#ffb7b7');
 	  			}
   			});
+  			insertDate();
 		});
 	}
 });
 
-// display the date of the last time packages were saved
-var msg;
-chrome.storage.local.get('last_accessed', function(res) {
-	// error check, see if there is no data in storage, else retreive date
-	// TODO format this time string better
-	var time = res.last_accessed;
-	if (res === undefined) {
-		msg = '<span class="caret"></span> Package Controls <font color="red">(No data stored for CSUpdate! Use the extension to save data for a comparison)</font>';
-	}
-	else if (!updated) {
-		msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+time+'. There have been no changes.)</font>';
-	}
-	else {
-		msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+time+')</font>';
-	}
-	var top = document.getElementById('filter-btn');
-	top.innerHTML = msg;
-});
-
+function insertDate() {
+	// display the date of the last time packages were saved
+	var msg;
+	chrome.storage.local.get('last_accessed', function(res) {
+		// error check, see if there is no data in storage, else retreive date
+		// TODO format this time string better
+		var time = res.last_accessed;
+		if (res === undefined) {
+			msg = '<span class="caret"></span> Package Controls <font color="red">(No data stored for CSUpdate! Use the extension to save data for a comparison)</font>';
+		}
+		else if (updated === false) {
+			msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+time+'. There have been no changes.)</font>';
+		}
+		else {
+			msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+time+'. There are '+count+' new or different packages.)</font>';
+		}
+		var top = document.getElementById('filter-btn');
+		top.innerHTML = msg;
+	});
+}
