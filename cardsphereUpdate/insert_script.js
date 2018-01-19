@@ -5,6 +5,9 @@ var count = 0;
 var packages = document.getElementById('packages cs-row');
 
 // get settings, or use defaults
+var bodyColor = '#ffb7b7';
+var headingColor = '#ff6d6d';
+
 chrome.storage.sync.get('settings', function(res) {
 	console.log(res);
 	/// then modify packages
@@ -67,10 +70,10 @@ function modifyPackages() {
 		  				console.log($(value.firstElementChild).attr('class'));
 		  				if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
 		  					console.log($(value).find('package-heading'));
-		  					$(value).find('.package-heading').css("background", '#ff6d6d');
+		  					$(value).find('.package-heading').css("background", headingColor);
 		  				}
-		  				$(value).find('.package-body').css("background", '#ffb7b7');
-		  				$(value).find('.package-footer').css("background", '#ffb7b7');
+		  				$(value).find('.package-body').css("background", bodyColor);
+		  				$(value).find('.package-footer').css("background", bodyColor);
 		  			}
 	  			});
 	  			// insert the last saved date
