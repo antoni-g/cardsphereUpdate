@@ -1,5 +1,6 @@
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
   var packages = document.getElementById('packages cs-row');
+  var settings = $('#collapseOne');
   var saved = {};
   $(document).ready(function () {
     	$(".package").each(function(index,value) {
@@ -12,7 +13,16 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     		saved[username] = {'price': price, 'efficiency': efficiency,'contents': contents};
         console.log('Saving ' + username);
     	});
+      // store settings
+      settings = {'countries': $('#countries').val(),
+                  'cutoff': $('#cutoff').val(),
+                  'min-package': $('#min-package').val(),
+                  'sort': $('select[name=sort] :selected').val(),
+                  'maximize': $('select[name=package] :selected').val()}
+
     	chrome.storage.local.set({'saved': saved}, function() {});
+      var hashed = JSON.stringify(settings).hashCode();
+      chrome.storage.local.set({hashed: saved}, function() {});
     	var d = new Date();
     	chrome.storage.local.set({'last_accessed': d.toString()}, function() {});
     	console.log("Saved, " + d.toString());

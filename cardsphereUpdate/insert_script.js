@@ -5,30 +5,30 @@ var count = 0;
 var packages = document.getElementById('packages cs-row');
 
 // get settings, or use defaults
+var targetStored = 'saved';
 var bodyColor = '#ffb7b7';
 var headingColor = '#ff6d6d';
+var usingSettings = false;
+// TODO
+var autosave = false;
 
 chrome.storage.sync.get('settings', function(res) {
 	//update settings if present
-	console.log(res);
 	if (res.body !== undefined) {
-		if (res.body !== bodyColor) {
-			bodyColor = res.bodyColor;
-		}
+		bodyColor = res.bodyColor;
 	}
 	if (res.heading !== undefined) { 
-		if (res.heading !== headingColor) {
-			headingColor = res.headingColor;
-		}
+		headingColor = res.headingColor;
 	}
-	console.log(res.body);
-
-	// then modify packages
+	if (res.usingSettings !== undefined) {
+		usingSettings = res.usingSettings;
+	}
+	// recolor packages
 	modifyPackages();
 });
 
 function modifyPackages() {
-	chrome.storage.local.get('saved', function(res) {
+	chrome.storage.local.get(targetStored, function(res) {
 		// error check, see if there is no data in storage, else retreive date
 		if (chrome.runtime.lastError) {
 			// TODO: proper error check. How to even get error?
@@ -76,7 +76,6 @@ function modifyPackages() {
 	  					updated = true;
 						count++;
 	  				}
-
 	  				if (changing) {
 		  				// then  change color of package
 		  				console.log('changing color of ' + username);
@@ -89,8 +88,8 @@ function modifyPackages() {
 		  				$(value).find('.package-footer').css("background", bodyColor);
 		  			}
 	  			});
-	  			// insert the last saved date
-	  			insertDate();
+				// once done, insert the last saved date
+				insertDate();
 			});
 		}
 	});
