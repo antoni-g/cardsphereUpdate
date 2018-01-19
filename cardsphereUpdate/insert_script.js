@@ -9,8 +9,21 @@ var bodyColor = '#ffb7b7';
 var headingColor = '#ff6d6d';
 
 chrome.storage.sync.get('settings', function(res) {
+	//update settings if present
 	console.log(res);
-	/// then modify packages
+	if (res.body !== undefined) {
+		if (res.body !== bodyColor) {
+			bodyColor = res.bodyColor;
+		}
+	}
+	if (res.heading !== undefined) { 
+		if (res.heading !== headingColor) {
+			headingColor = res.headingColor;
+		}
+	}
+	console.log(res.body);
+
+	// then modify packages
 	modifyPackages();
 });
 
