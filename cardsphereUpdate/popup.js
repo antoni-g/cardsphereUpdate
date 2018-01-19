@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
             $("#disp_mem").click(function() {
                 printMem();
             });
+            $("#options").click(function() {
+                chrome.runtime.openOptionsPage();
+            });
     	}
     });
 });
