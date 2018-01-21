@@ -1,14 +1,45 @@
 <!doctype html>
 <html>
 <head>
-	
 	<script src="jquery-3.2.1.min.js"></script>
 	<script src='spectrum.js'></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
 	<link rel='stylesheet' href='spectrum.css' />
+	<link rel='stylesheet' href='styles.css' />
+	
 </head>
 
 <body>
-	<input type='text' id="custom" />
+	<div id='heading' class='jumbotron' padding ='10px'>
+		<div class="paddedBox">
+			<h1>Options</h1>
+		</div>
+	</div>
+
+	<div id='options' class='optionBox'>
+		<div id='colorSelection'>
+			<p>Adjust the color of highlighted packages</p>
+			<p>Heading color</p>
+			<input type='text' id="headingColor"/>
+			<p>Body color</p>
+			<input type='text' id="bodyColor"/>
+			<div class="btn-group mr-2" role="group" id='colorButtons' aria-label="Color buttons">
+    			<button type="button" id='save' class="btn btn-secondary">Save Current</button>
+    			<button type="button" id='default' class="btn btn-secondary">Revert to Default</button>
+  			</div>
+		</div>
+		<div id='checkOptions'>
+			<input class="form-check-input" type="checkbox" value="" id="saveSettings">
+  			<label class="form-check-label" for="saveSettings">
+    			Use last saved settings
+  			</label>
+  			<input class="form-check-input" type="checkbox" value="" id="autosave">
+  			<label class="form-check-label" for="autosave" checked>
+    			Autosave when visiting Cardsphere
+  			</label>
+		</div>
+	</div>
+
 	<script src="options.js"></script>
 </body>
 </html>

@@ -1,0 +1,16 @@
+.optionBox {
+	padding: 20px;
+    height: 400px;
+    width: 800px;
+    overflow: auto;
+}
+
+.paddedBox {
+	padding-left: 40px;
+}
+
+#container {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
