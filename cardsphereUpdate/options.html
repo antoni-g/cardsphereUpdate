@@ -19,12 +19,15 @@
 	<div id='options' class='optionBox'>
 		<div id='colorSelection'>
 			<p>Adjust the color of highlighted packages</p>
-			<p>Heading color</p>
-			<input type='text' id="headingColor"/>
-			<p>Body color</p>
-			<input type='text' id="bodyColor"/>
+			
+			<label for="headingColor">Heading color</label>
+			<input type='color' id="headingColor"/>
+			
+			<label for="bodyColor">Body color</label>
+			<input type='color' id="bodyColor"/>
+
 			<div class="btn-group mr-2" role="group" id='colorButtons' aria-label="Color buttons">
-    			<button type="button" id='save' class="btn btn-secondary">Save Current</button>
+    			<button type="button" id='saveColor' class="btn btn-secondary">Save Current</button>
     			<button type="button" id='default' class="btn btn-secondary">Revert to Default</button>
   			</div>
 		</div>
