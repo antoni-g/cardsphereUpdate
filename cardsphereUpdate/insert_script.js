@@ -6,22 +6,22 @@ var packages = document.getElementById('packages cs-row');
 
 // get settings, or use defaults
 var targetStored = 'saved';
-var bodyColor = '#ffb7b7';
-var headingColor = '#ff6d6d';
+var bodyColor = '#FCF3CF';
+var headingColor = '#f7dc6f';
 var usingSettings = false;
 // TODO
 var autosave = false;
 
 chrome.storage.sync.get('settings', function(res) {
 	//update settings if present
-	if (res.body !== undefined) {
-		bodyColor = res.bodyColor;
+	if (res.settings.body !== undefined) {
+		bodyColor = res.settings.body;
 	}
-	if (res.heading !== undefined) { 
-		headingColor = res.headingColor;
+	if (res.settings.heading !== undefined) { 
+		headingColor = res.settings.heading;
 	}
-	if (res.usingSettings !== undefined) {
-		usingSettings = res.usingSettings;
+	if (res.settings.usingSettings !== undefined) {
+		usingSettings = res.settings.usingSettings;
 	}
 	// recolor packages
 	modifyPackages();
