@@ -1,39 +1,82 @@
 // load stored settings
 var headingColor = '#f7dc6f';
 var bodyColor = '#FCF3CF';
+var autosaving = false;
+var savingSettings = false;
 chrome.storage.sync.get('settings', function(res) {
+	if (chrome.runtime.lastError) {
+		// TODO: proper error check. How to even get error?
+	}
 	if (res.settings.body !== undefined) {
 		bodyColor = res.settings.body;
 	}
 	if (res.settings.heading !== undefined) { 
 		headingColor = res.settings.heading;
 	}
+	if (res.settings.autosave !== undefined) {
+		autosaving = res.settings.autosave;
+	}
+	if (res.settings.autosave !== undefined) {
+		savingSettings = res.settings.usingSettings;
+	}
 	addListeners();
 });
 
 function addListeners() {
-	// first update colors
-	$("#headingColor").prop('value',headingColor);
-	$("#bodyColor").prop('value',bodyColor); 
 	// add button listeners
 	$(document).ready(function() {
+		// first update colors and values
+		$("#headingColor").prop('value',headingColor);
+		$("#bodyColor").prop('value',bodyColor);
+		if (autosaving) {
+			$('#autosave').prop('checked', true);
+		}
+		if (savingSettings) {
+			$('#saveSettings').prop('checked', true);
+		}
+		// save colors
 		$('#saveColor').click(function() {
 			bodyColor = $($("#bodyColor").spectrum('get')).val();
 			headingColor = $($("#headingColor").spectrum('get')).val();
 			chrome.storage.sync.get('settings', function(res) {
-				res.body = bodyColor;
-				res.heading = headingColor;
-				console.log(res);
-				chrome.storage.sync.set({'settings': res}, function() {
-					chrome.storage.sync.get('settings', function(res) {
-						console.log(res)
-					});
-				});
+				chrome.storage.sync.set({'settings': {'body': bodyColor,
+													  'heading': headingColor,
+													  'usingSettings': res.settings.usingSettings,
+													  'autosave': res.settings.autosave}});
 			});
 		});
+		// default colors
 		$('#default').click(function() {
 			$("#headingColor").prop('value','#f7dc6f');
 			$("#bodyColor").prop('value','#FCF3CF'); 
+		});
+		// remember settings
+		$('#saveSettings').change(function(){
+			var using = false;
+			if ($('#saveSettings').is(':checked')) {
+				using = true;
+			}
+			chrome.storage.sync.get('settings', function(res) {
+				res.usingSettings = using;
+				chrome.storage.sync.set({'settings': {'body': res.settings.body,
+													  'heading': res.settings.heading,
+													  'usingSettings': using,
+													  'autosave': res.settings.autosave}});
+			});
+		});
+		// autosave
+		$('#autosave').change(function(){
+			var autosaving = false;
+			if ($('#autosave').is(':checked')) {
+				autosaving = true;
+			}
+			chrome.storage.sync.get('settings', function(res) {
+				res.autosave = autosaving;
+				chrome.storage.sync.set({'settings': {'body': res.settings.body,
+													  'heading': res.settings.heading,
+													  'usingSettings': res.settings.usingSettings,
+													  'autosave':autosaving}});
+			});
 		});
 	});
 }

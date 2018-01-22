@@ -23,6 +23,9 @@ chrome.storage.sync.get('settings', function(res) {
 	if (res.settings.usingSettings !== undefined) {
 		usingSettings = res.settings.usingSettings;
 	}
+	if (res.settings.autosave !== undefined) {
+		autosave = res.settings.autosave;
+	}
 	// recolor packages
 	modifyPackages();
 });
