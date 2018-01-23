@@ -102,18 +102,16 @@ function changePackage(value, user, update, target) {
 	$(value).find('.package-footer').css("background", bodyColor);
 	// then insert the ok button
 	$(value).find('.button-div').prepend("<button type='button' id='"+user+"'class='bt btn-primary'>OK</button>")
-	$(value).children(":first").click(function(){
+	$('#'+user).click(function(){
 		// update stored data to remove this as a new package
-		alert('huh');
-		console.log('huh');
 		// recolor
-		if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
-			$(value).find('.package-heading').css("background", originalHeadingColor);
-		}
-		$(value).find('.package-body').css("background", originaBodyColor);
-		$(value).find('.package-footer').css("background", originalBodyColor);
+		// if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
+		// 	$(value).find('.package-heading').css("background", originalHeadingColor);
+		// }
+		// $(value).find('.package-body').css("background", originaBodyColor);
+		// $(value).find('.package-footer').css("background", originalBodyColor);
 		// finally, hide button
-		$(this).hide();
+		$('#'+user).hide();
 	});
 }
 
