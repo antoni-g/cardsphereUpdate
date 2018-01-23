@@ -20,17 +20,19 @@ chrome.storage.sync.get('settings', function(res) {
 		headingColor = res.settings.heading;
 	}
 	if (res.settings.usingSettings !== undefined) {
-		usingSettings = res.settings.usingSettings;
+		if (res.settings.usingSettings) {
+			targetStored = JSON.stringify(getSettings()).hashCode().toString();
+		}
 	}
 	if (res.settings.autosave !== undefined) {
-		targetStored = JSON.stringify(getSettings()).hashCode().toString();
+		autosave = res.settings.autosave;
 	}
 	// recolor packages
 	modifyPackages();
 });
 
 function modifyPackages() {
-	chrome.storage.local.get([targetStored], function(res) {
+	chrome.storage.local.get(targetStored, function(res) {
 		// error check, see if there is no data in storage, else retreive date
 		if (chrome.runtime.lastError) {
 			// TODO: proper error check. How to even get error?
@@ -51,42 +53,55 @@ function modifyPackages() {
 	  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
 	  				var contents =  $(value).find(".package-body").text().hashCode();
 	  				//first check user
-	  				if (res.saved[username] === undefined) {
+	  				if (res[targetStored][username] === undefined) {
 	  					changing = true;
 	  					updated = true;
 						count++;
 	  				}
 	  				// then price
-	  				else if (res.saved[username].price !== price) {
+	  				else if (res[targetStored][username].price !== price) {
 	  					changing = true;
 	  					updated = true;
 						count++;
 	  				}
 	  				// then efficiency 
-	  				else if (res.saved[username].efficiency !== efficiency) {
+	  				else if (res[targetStored][username].efficiency !== efficiency) {
 	  					changing = true;
 	  					updated = true;
 						count++;
 	  				}
 	  				// else check package contents (is this going to be too slow?)
-	  				else if (res.saved[username].contents !== contents) {
+	  				else if (res[targetStored][username].contents !== contents) {
 	  					changing = true;
 	  					updated = true;
 						count++;
 	  				}
 	  				if (changing) {
 		  				// then  change color of package
-		  				if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
-		  					$(value).find('.package-heading').css("background", headingColor);
-		  				}
-		  				$(value).find('.package-body').css("background", bodyColor);
-		  				$(value).find('.package-footer').css("background", bodyColor);
+		  				console.log(username);
+		  				changePackage(value, username);
 		  			}
 	  			});
 				// once done, insert the last saved date
 				insertDate();
 			});
 		}
+	});
+}
+
+function changePackage(value, user) {
+	console.log(user);
+	// first change the color of the package
+	if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
+		$(value).find('.package-heading').css("background", headingColor);
+	}
+	$(value).find('.package-body').css("background", bodyColor);
+	$(value).find('.package-footer').css("background", bodyColor);
+	// then insert the ok button
+	$(value).find('.button-div').prepend("<button type='button' id='"+user+"'class='bt btn-primary'>OK</button>")
+	$(value).children(":first").click(function(){
+		alert('huh');
+		console.log('huh');
 	});
 }
 

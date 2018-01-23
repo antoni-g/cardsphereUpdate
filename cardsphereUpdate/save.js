@@ -9,26 +9,14 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     		var price = $($(heading).children()[1]).find("strong").text();
     		var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
     		var contents =  ($(value).find(".package-body").text()).hashCode();
-
     		saved[username] = {'price': price, 'efficiency': efficiency,'contents': contents};
     	});
       // store settings
       settings = JSON.stringify(getSettings()).hashCode().toString();
-      console.log(settings);
-    	chrome.storage.local.set({'saved': saved}, function() {
-        chrome.storage.local.get('saved', function(res){
-           console.log(res);
-        });
-      });
-      chrome.storage.local.set({[settings]: saved}, function() {
-        chrome.storage.local.get([settings], function(res){
-           console.log(res);
-        });
-      });
+    	chrome.storage.local.set({'saved': saved}, function() {});
+      chrome.storage.local.set({[settings]: saved}, function() {});
     	var d = new Date();
     	chrome.storage.local.set({'last_accessed': d.toString()}, function() {});
-    	console.log("Saved, " + d.toString());
-      console.log(saved);
   });
 });
 
