@@ -121,7 +121,7 @@ function updateSaved(user, update, target) {
 	// place hold for huh
 	chrome.storage.local.get(targetStored, function(res){
 		res[targetStored][user] = update;
-		chrome.storage.local.set(res, function(res));
+		chrome.storage.local.set(res, function(){});
 	})
 }
 
