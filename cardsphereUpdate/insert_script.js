@@ -79,7 +79,8 @@ function modifyPackages() {
 	  				if (changing) {
 		  				// then  change color of package
 		  				console.log(username);
-		  				changePackage(value, username);
+		  				update = {'price': price, 'efficiency': efficiency,'contents': contents};
+		  				changePackage(value, username, update, targetStored);
 		  			}
 	  			});
 				// once done, insert the last saved date
@@ -89,8 +90,10 @@ function modifyPackages() {
 	});
 }
 
-function changePackage(value, user) {
+function changePackage(value, user, update, target) {
 	console.log(user);
+	var originalHeadingColor = $(value).find('.package-heading').prop("background");
+	var originalBodyColor = $(value).find('.package-body').prop("background");
 	// first change the color of the package
 	if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
 		$(value).find('.package-heading').css("background", headingColor);
@@ -100,9 +103,26 @@ function changePackage(value, user) {
 	// then insert the ok button
 	$(value).find('.button-div').prepend("<button type='button' id='"+user+"'class='bt btn-primary'>OK</button>")
 	$(value).children(":first").click(function(){
+		// update stored data to remove this as a new package
 		alert('huh');
 		console.log('huh');
+		// recolor
+		if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
+			$(value).find('.package-heading').css("background", originalHeadingColor);
+		}
+		$(value).find('.package-body').css("background", originaBodyColor);
+		$(value).find('.package-footer').css("background", originalBodyColor);
+		// finally, hide button
+		$(this).hide();
 	});
+}
+
+function updateSaved(user, update, target) {
+	// place hold for huh
+	chrome.storage.local.get(targetStored, function(res){
+		res[targetStored][user] = update;
+		chrome.storage.local.set(res, function(res));
+	})
 }
 
 function insertDate() {
