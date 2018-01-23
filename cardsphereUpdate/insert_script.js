@@ -8,7 +8,6 @@ var packages = document.getElementById('packages cs-row');
 var targetStored = 'saved';
 var bodyColor = '#FCF3CF';
 var headingColor = '#f7dc6f';
-var usingSettings = false;
 // TODO
 var autosave = false;
 
@@ -24,14 +23,14 @@ chrome.storage.sync.get('settings', function(res) {
 		usingSettings = res.settings.usingSettings;
 	}
 	if (res.settings.autosave !== undefined) {
-		autosave = res.settings.autosave;
+		targetStored = JSON.stringify(getSettings()).hashCode().toString();
 	}
 	// recolor packages
 	modifyPackages();
 });
 
 function modifyPackages() {
-	chrome.storage.local.get(targetStored, function(res) {
+	chrome.storage.local.get([targetStored], function(res) {
 		// error check, see if there is no data in storage, else retreive date
 		if (chrome.runtime.lastError) {
 			// TODO: proper error check. How to even get error?
@@ -53,38 +52,31 @@ function modifyPackages() {
 	  				var contents =  $(value).find(".package-body").text().hashCode();
 	  				//first check user
 	  				if (res.saved[username] === undefined) {
-	  					console.log(username + ' not present');
 	  					changing = true;
 	  					updated = true;
 						count++;
 	  				}
 	  				// then price
 	  				else if (res.saved[username].price !== price) {
-	  					console.log('price difference for ' + username + ' : ' + price + ' now to ' + res.saved[username].price);
 	  					changing = true;
 	  					updated = true;
 						count++;
 	  				}
 	  				// then efficiency 
 	  				else if (res.saved[username].efficiency !== efficiency) {
-	  					console.log('efficiency difference for ' + username + ' : ' + efficiency + ' now to ' + res.saved[username].efficiency);
 	  					changing = true;
 	  					updated = true;
 						count++;
 	  				}
 	  				// else check package contents (is this going to be too slow?)
 	  				else if (res.saved[username].contents !== contents) {
-	  					console.log('contents difference for ' + username);
 	  					changing = true;
 	  					updated = true;
 						count++;
 	  				}
 	  				if (changing) {
 		  				// then  change color of package
-		  				console.log('changing color of ' + username);
-		  				console.log($(value.firstElementChild).attr('class'));
 		  				if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
-		  					console.log($(value).find('package-heading'));
 		  					$(value).find('.package-heading').css("background", headingColor);
 		  				}
 		  				$(value).find('.package-body').css("background", bodyColor);
@@ -111,10 +103,32 @@ function insertDate() {
 		else if (updated === false) {
 			msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+time+'. There have been no changes.)</font>';
 		}
+		else if (count === 1) {
+			msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+time+'. There is 1 new or different package.)</font>';
+		}
 		else {
 			msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+time+'. There are '+count+' new or different packages.)</font>';
 		}
 		var top = document.getElementById('filter-btn');
 		top.innerHTML = msg;
 	});
+}
+
+String.prototype.hashCode = function() {
+  var hash = 0, i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr   = this.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
+function getSettings() {
+  return {'countries': $('#countries').val(),
+          'cutoff': $('#cutoff').val(),
+          'min-package': $('#min-package').val(),
+          'sort': $('select[name=sort] :selected').val(),
+          'maximize': $('select[name=package] :selected').val()}
 }

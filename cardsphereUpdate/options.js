@@ -50,7 +50,7 @@ function addListeners() {
 			$("#headingColor").prop('value','#f7dc6f');
 			$("#bodyColor").prop('value','#FCF3CF'); 
 		});
-		// remember settings
+		// only compare same settings
 		$('#saveSettings').change(function(){
 			var using = false;
 			if ($('#saveSettings').is(':checked')) {

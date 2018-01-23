@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
   var packages = document.getElementById('packages cs-row');
-  var settings = $('#collapseOne');
+  var settings;
   var saved = {};
   $(document).ready(function () {
     	$(".package").each(function(index,value) {
@@ -11,18 +11,20 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     		var contents =  ($(value).find(".package-body").text()).hashCode();
 
     		saved[username] = {'price': price, 'efficiency': efficiency,'contents': contents};
-        console.log('Saving ' + username);
     	});
       // store settings
-      settings = {'countries': $('#countries').val(),
-                  'cutoff': $('#cutoff').val(),
-                  'min-package': $('#min-package').val(),
-                  'sort': $('select[name=sort] :selected').val(),
-                  'maximize': $('select[name=package] :selected').val()}
-
-    	chrome.storage.local.set({'saved': saved}, function() {});
-      var hashed = JSON.stringify(settings).hashCode();
-      chrome.storage.local.set({hashed: saved}, function() {});
+      settings = JSON.stringify(getSettings()).hashCode().toString();
+      console.log(settings);
+    	chrome.storage.local.set({'saved': saved}, function() {
+        chrome.storage.local.get('saved', function(res){
+           console.log(res);
+        });
+      });
+      chrome.storage.local.set({[settings]: saved}, function() {
+        chrome.storage.local.get([settings], function(res){
+           console.log(res);
+        });
+      });
     	var d = new Date();
     	chrome.storage.local.set({'last_accessed': d.toString()}, function() {});
     	console.log("Saved, " + d.toString());
@@ -40,3 +42,11 @@ String.prototype.hashCode = function() {
   }
   return hash;
 };
+
+function getSettings() {
+  return {'countries': $('#countries').val(),
+          'cutoff': $('#cutoff').val(),
+          'min-package': $('#min-package').val(),
+          'sort': $('select[name=sort] :selected').val(),
+          'maximize': $('select[name=package] :selected').val()}
+}
