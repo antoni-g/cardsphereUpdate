@@ -8,9 +8,8 @@ var packages = document.getElementById('packages cs-row');
 var targetStored = 'saved';
 var bodyColor = '#FCF3CF';
 var headingColor = '#f7dc6f';
-var originalHeadingColor = $(".package").find('.package-heading').prop("background");
-var originalBodyColor = '#ecf0f1';
-console.log(originalHeadingColor);
+var originalHeadingColor = $(".package-heading").first().css("background");
+var originalBodyColor = $(".package-body").first().css("background");
 // TODO
 var autosave = false;
 
