@@ -1,24 +1,28 @@
+var settings;
+var saved = {};
+
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-  var packages = document.getElementById('packages cs-row');
-  var settings;
-  var saved = {};
   $(document).ready(function () {
-    	$(".package").each(function(index,value) {
-    		var heading = $(value).find(".package-heading");
-    		var username = $($(heading).children()[0]).find("a").text();
-    		var price = $($(heading).children()[1]).find("strong").text();
-    		var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
-    		var contents =  ($(value).find(".package-body").text()).hashCode();
-    		saved[username] = {'price': price, 'efficiency': efficiency,'contents': contents};
-    	});
-      // store settings
-      settings = JSON.stringify(getSettings()).hashCode().toString();
-    	chrome.storage.local.set({'saved': saved}, function() {});
-      chrome.storage.local.set({[settings]: saved}, function() {});
-    	var d = new Date();
-    	chrome.storage.local.set({'last_accessed': d.toString()}, function() {});
+    	save();
   });
 });
+
+function save() {
+  $(".package").each(function(index,value) {
+        var heading = $(value).find(".package-heading");
+        var username = $($(heading).children()[0]).find("a").text();
+        var price = $($(heading).children()[1]).find("strong").text();
+        var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
+        var contents =  ($(value).find(".package-body").text()).hashCode();
+        saved[username] = {'price': price, 'efficiency': efficiency,'contents': contents};
+      });
+      // store settings
+      settings = JSON.stringify(getSettings()).hashCode().toString();
+      chrome.storage.local.set({'saved': saved}, function() {});
+      chrome.storage.local.set({[settings]: saved}, function() {});
+      var d = new Date();
+      chrome.storage.local.set({'last_accessed': d.toString()}, function() {});
+}
 
 String.prototype.hashCode = function() {
   var hash = 0, i, chr;

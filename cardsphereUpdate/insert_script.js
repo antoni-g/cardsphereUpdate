@@ -81,7 +81,7 @@ function modifyPackages() {
 	  				if (changing) {
 		  				// then  change color of package
 		  				update = {'price': price, 'efficiency': efficiency,'contents': contents};
-		  				changePackage(value, username, update, targetStored);
+		  				changePackage(value, username, update);
 		  			}
 	  			});
 				// once done, insert the last saved date
@@ -100,16 +100,22 @@ function changePackage(value, user, update) {
 	$(value).find('.package-footer').css("background", bodyColor);
 	// then insert the ok button
 	var id = user.hashCode().toString();
+	// OK button code
 	$(value).find('.button-div').prepend("<button type='button' id='"+id+"'class='bt btn-primary'>OK</button>");
 	$('#'+id).click(function(){
-		// update stored data to remove this as a new package
 		// recolor
 		if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
 			$(value).find('.package-heading').css("background", originalHeadingColor);
 		}	
 		$(value).find('.package-body').css("background", originalBodyColor);
 		$(value).find('.package-footer').css("background", originalBodyColor);
-		// finally, hide
+		// remove this package from saved data
+		chrome.storage.local.get(targetStored, function(res){
+			var ne = res;
+			ne[targetStored][user] = update;
+			chrome.storage.local.set({[targetStored]: ne[targetStored]}, function(){});
+		});
+		// finally, hide button
 		$('#'+id).hide();
 	});
 }
@@ -144,6 +150,10 @@ function insertDate() {
 		var top = document.getElementById('filter-btn');
 		top.innerHTML = msg;
 	});
+}
+
+function adjustDate() {
+
 }
 
 String.prototype.hashCode = function() {
