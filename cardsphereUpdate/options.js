@@ -100,11 +100,7 @@ function addListeners() {
 													  'heading': res.settings.heading,
 													  'usingSettings': res.settings.usingSettings,
 													  'autosave': res.settings.autosave,
-													  'showOK': showing}}, function() {
-													  	chrome.storage.sync.get('settings', function(res) {
-													  		console.log(res);
-													  	});
-													  });
+													  'showOK': showing}});
 			});
 		});
 	});

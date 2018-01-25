@@ -21,7 +21,9 @@ function save() {
       chrome.storage.local.set({'saved': saved}, function() {});
       chrome.storage.local.set({[settings]: saved}, function() {});
       var d = new Date();
-      chrome.storage.local.set({'last_accessed': d.toString()}, function() {});
+      chrome.storage.local.set({'saved_last_accessed': d.toString()}, function() {});
+      var time = settings+'_last_accessed'
+      chrome.storage.local.set({[time]: d.toString()}, function() {});
 }
 
 String.prototype.hashCode = function() {

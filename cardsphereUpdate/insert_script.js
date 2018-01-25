@@ -6,10 +6,11 @@ var count = 0;
 // get settings, or use defaults
 var targetStored = 'saved';
 var showOK = true;
+var noData = false;
 // color data
 var bodyColor = '#FCF3CF';
 var headingColor = '#f7dc6f';
-var originalHeadingColor = $(".package-heading").first().css("background");
+var originalHeadingColor = $(".package-heading").not(".premium").first().css("background");
 var originalBodyColor = $(".package-body").first().css("background");
 // TODO
 var autosave = false;
@@ -39,12 +40,15 @@ chrome.storage.sync.get('settings', function(res) {
 
 function modifyPackages() {
 	chrome.storage.local.get(targetStored, function(res) {
+		console.log(res);
 		// error check, see if there is no data in storage, else retreive date
 		if (chrome.runtime.lastError) {
 			// TODO: proper error check. How to even get error?
 		}
-		else if (res === undefined) {
+		else if ($.isEmptyObject(res)) {
 		 	// do nothing, not updated
+		 	noData = true;
+		 	insertDate();
 		}
 		else {
 			// iterate through each package listed on CS and lookup in returned hashmap
@@ -131,12 +135,16 @@ function changePackage(value, user, update) {
 function insertDate() {
 	// display the date of the last time packages were saved
 	var msg;
-	chrome.storage.local.get('last_accessed', function(res) {
+	chrome.storage.local.get(targetStored+'_last_accessed', function(res) {
 		// error check, see if there is no data in storage, else retreive date
 		// TODO format this time string better
-		var time = res.last_accessed;
-		if (res === undefined) {
-			msg = '<span class="caret"></span> Package Controls <font color="red">(No data stored for CSUpdate! Use the extension to save data for a comparison)</font>';
+		var key = targetStored+'_last_accessed'
+		var time = res[key];
+		if (res === undefined || $.isEmptyObject(res)) {
+			msg = '<span class="caret"></span> Package Controls <font color="red">(No data stored for CSUpdate! Use the extension to save data for a comparison.)</font>';
+		}
+		else if (noData && (targetStored != 'saved')) {
+			msg = msg = '<span class="caret"></span> Package Controls <font color="red">(No data stored for these selected settings! Use the extension to save data for a comparison.)</font>';
 		}
 		else if (updated === false) {
 			msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+time+'. There have been no changes.)</font>';
