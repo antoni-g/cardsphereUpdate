@@ -12,7 +12,6 @@ var bodyColor = '#FCF3CF';
 var headingColor = '#f7dc6f';
 var originalHeadingColor = $(".package-heading").not(".premium").first().css("background");
 var originalBodyColor = $(".package-body").first().css("background");
-// TODO
 var autosave = false;
 
 chrome.storage.sync.get('settings', function(res) {
@@ -40,7 +39,6 @@ chrome.storage.sync.get('settings', function(res) {
 
 function modifyPackages() {
 	chrome.storage.local.get(targetStored, function(res) {
-		console.log(res);
 		// error check, see if there is no data in storage, else retreive date
 		if (chrome.runtime.lastError) {
 			// TODO: proper error check. How to even get error?
@@ -94,6 +92,11 @@ function modifyPackages() {
 	  			});
 				// once done, insert the last saved date
 				insertDate();
+				// finally, autosave if necessary 
+				if (autosave) {
+					console.log('gonna autosave');
+					chrome.runtime.sendMessage({func: "autosave"}, function(response) {});
+				}
 			});
 		}
 	});

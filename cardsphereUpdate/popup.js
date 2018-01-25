@@ -12,6 +12,13 @@ function getCurrentTabUrl(callback) {
   });
 }
 
+// autosave functionality
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.func === 'autosave') {
+        savePackages();
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 	getCurrentTabUrl((tgt) => {
     	var textSpace = document.getElementById('text');
@@ -36,9 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function savePackages() { 
-    // send dmessage to save.js content script
+    // sendd message to save.js content script
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
+        chrome.tabs.sendMessage(tabs[0].id, {func: "save"}, function(response) {
             console.log('Saved.');
         });
     });
@@ -57,10 +64,7 @@ function savePackages() {
 // helper method
 function printMem() {
     console.log('printing mem');
-    chrome.storage.local.get('saved', function(res) {
-        console.log(res);
-    });
-    chrome.storage.local.get('last_accessed', function(res) {
+    chrome.storage.local.get(null, function(res) {
         console.log(res);
     });
 }

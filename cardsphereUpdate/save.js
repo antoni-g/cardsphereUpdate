@@ -2,28 +2,31 @@ var settings;
 var saved = {};
 
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-  $(document).ready(function () {
-    	save();
-  });
+  if (msg.func === 'save') {
+    $(document).ready(function () {
+      save();
+    });
+  }
 });
 
 function save() {
   $(".package").each(function(index,value) {
-        var heading = $(value).find(".package-heading");
-        var username = $($(heading).children()[0]).find("a").text();
-        var price = $($(heading).children()[1]).find("strong").text();
-        var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
-        var contents =  ($(value).find(".package-body").text()).hashCode();
-        saved[username] = {'price': price, 'efficiency': efficiency,'contents': contents};
-      });
-      // store settings
-      settings = JSON.stringify(getSettings()).hashCode().toString();
-      chrome.storage.local.set({'saved': saved}, function() {});
-      chrome.storage.local.set({[settings]: saved}, function() {});
-      var d = new Date();
-      chrome.storage.local.set({'saved_last_accessed': d.toString()}, function() {});
-      var time = settings+'_last_accessed'
-      chrome.storage.local.set({[time]: d.toString()}, function() {});
+    var heading = $(value).find(".package-heading");
+    var username = $($(heading).children()[0]).find("a").text();
+    var price = $($(heading).children()[1]).find("strong").text();
+    var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
+    var contents =  ($(value).find(".package-body").text()).hashCode();
+    saved[username] = {'price': price, 'efficiency': efficiency,'contents': contents};
+  });
+  // store settings
+  settings = JSON.stringify(getSettings()).hashCode().toString();
+  chrome.storage.local.set({'saved': saved}, function() {});
+  chrome.storage.local.set({[settings]: saved}, function() {});
+  var d = new Date();
+  chrome.storage.local.set({'saved_last_accessed': d.toString()}, function() {});
+  var time = settings+'_last_accessed'
+  chrome.storage.local.set({[time]: d.toString()}, function() {});
+  console.log('Saved., yes!');
 }
 
 String.prototype.hashCode = function() {
