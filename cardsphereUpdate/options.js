@@ -3,6 +3,7 @@ var headingColor = '#f7dc6f';
 var bodyColor = '#FCF3CF';
 var autosaving = false;
 var savingSettings = false;
+var showOK = true;
 chrome.storage.sync.get('settings', function(res) {
 	if (chrome.runtime.lastError) {
 		// TODO: proper error check. How to even get error?
@@ -19,6 +20,9 @@ chrome.storage.sync.get('settings', function(res) {
 	if (res.settings.autosave !== undefined) {
 		savingSettings = res.settings.usingSettings;
 	}
+	if (res.settings.usingOK !== undefined) {
+		showOK = res.settings.showOK;
+	}
 	addListeners();
 });
 
@@ -34,6 +38,9 @@ function addListeners() {
 		if (savingSettings) {
 			$('#saveSettings').prop('checked', true);
 		}
+		if (showOK) {
+			$('#okButton').prop('checked', true);
+		}
 		// save colors
 		$('#saveColor').click(function() {
 			bodyColor = $($("#bodyColor").spectrum('get')).val();
@@ -42,7 +49,8 @@ function addListeners() {
 				chrome.storage.sync.set({'settings': {'body': bodyColor,
 													  'heading': headingColor,
 													  'usingSettings': res.settings.usingSettings,
-													  'autosave': res.settings.autosave}});
+													  'autosave': res.settings.autosave,
+													  'showOK': res.settings.showOK}});
 			});
 		});
 		// default colors
@@ -61,7 +69,8 @@ function addListeners() {
 				chrome.storage.sync.set({'settings': {'body': res.settings.body,
 													  'heading': res.settings.heading,
 													  'usingSettings': using,
-													  'autosave': res.settings.autosave}});
+													  'autosave': res.settings.autosave,
+													  'showOK': res.settings.showOK}});
 			});
 		});
 		// autosave
@@ -75,9 +84,24 @@ function addListeners() {
 				chrome.storage.sync.set({'settings': {'body': res.settings.body,
 													  'heading': res.settings.heading,
 													  'usingSettings': res.settings.usingSettings,
-													  'autosave':autosaving}});
+													  'autosave':autosaving,
+													  'showOK': res.settings.showOK}});
 			});
 		});
 		// ok button
+		$('#okButton').change(function(){
+			var showing = false;
+			if ($('#okButton').is(':checked')) {
+				showing = true;
+			}
+			chrome.storage.sync.get('settings', function(res) {
+				res.autosave = showing;
+				chrome.storage.sync.set({'settings': {'body': res.settings.body,
+													  'heading': res.settings.heading,
+													  'usingSettings': res.settings.usingSettings,
+													  'autosave': res.settings.autosave,
+													  'showOK': showing}});
+			});
+		});
 	});
 }

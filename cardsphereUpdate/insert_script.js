@@ -2,10 +2,11 @@
 // check current packages against those that were stored and compare
 var updated = false;
 var count = 0;
-var packages = document.getElementById('packages cs-row');
 
 // get settings, or use defaults
 var targetStored = 'saved';
+var showOK = true;
+// color data
 var bodyColor = '#FCF3CF';
 var headingColor = '#f7dc6f';
 var originalHeadingColor = $(".package-heading").first().css("background");
@@ -28,6 +29,9 @@ chrome.storage.sync.get('settings', function(res) {
 	}
 	if (res.settings.autosave !== undefined) {
 		autosave = res.settings.autosave;
+	}
+	if (res.settings.showOK !== undefined) {
+		showOK = res.settings.showOK;
 	}
 	// recolor packages
 	modifyPackages();
@@ -100,32 +104,28 @@ function changePackage(value, user, update) {
 	$(value).find('.package-footer').css("background", bodyColor);
 	// then insert the ok button
 	var id = user.hashCode().toString();
-	// OK button code
-	$(value).find('.button-div').prepend("<button type='button' id='"+id+"'class='bt btn-primary'>OK</button>");
-	$('#'+id).click(function(){
-		// recolor
-		if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
-			$(value).find('.package-heading').css("background", originalHeadingColor);
-		}	
-		$(value).find('.package-body').css("background", originalBodyColor);
-		$(value).find('.package-footer').css("background", originalBodyColor);
-		// remove this package from saved data
-		chrome.storage.local.get(targetStored, function(res){
-			var ne = res;
-			ne[targetStored][user] = update;
-			chrome.storage.local.set({[targetStored]: ne[targetStored]}, function(){});
+	// OK button 
+	if (showOK) {
+		$(value).find('.button-div').prepend("<button type='button' id='"+id+"'class='bt btn-primary'>OK</button>");
+		$('#'+id).click(function(){
+			// recolor
+			if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
+				$(value).find('.package-heading').css("background", originalHeadingColor);
+			}	
+			$(value).find('.package-body').css("background", originalBodyColor);
+			$(value).find('.package-footer').css("background", originalBodyColor);
+			// remove this package from saved data
+			chrome.storage.local.get(targetStored, function(res){
+				var ne = res;
+				ne[targetStored][user] = update;
+				chrome.storage.local.set({[targetStored]: ne[targetStored]}, function(){});
+			});
+			count--;
+			// finally, hide button and update package count
+			$('#'+id).hide();
+			insertDate();
 		});
-		// finally, hide button
-		$('#'+id).hide();
-	});
-}
-
-function updateSaved(user, update, target) {
-	// place hold for huh
-	chrome.storage.local.get(targetStored, function(res){
-		res[targetStored][user] = update;
-		chrome.storage.local.set(res, function(){});
-	})
+	}
 }
 
 function insertDate() {
@@ -150,10 +150,6 @@ function insertDate() {
 		var top = document.getElementById('filter-btn');
 		top.innerHTML = msg;
 	});
-}
-
-function adjustDate() {
-
 }
 
 String.prototype.hashCode = function() {
