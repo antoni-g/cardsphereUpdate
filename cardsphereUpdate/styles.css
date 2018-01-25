@@ -9,6 +9,15 @@
 	padding-left: 40px;
 }
 
+.divider {
+  height: 1px;
+  width:100%;
+  display:block;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+
 #container {
     align-items: center;
     display: flex;
