@@ -20,7 +20,7 @@ chrome.storage.sync.get('settings', function(res) {
 	if (res.settings.autosave !== undefined) {
 		savingSettings = res.settings.usingSettings;
 	}
-	if (res.settings.usingOK !== undefined) {
+	if (res.settings.showOK !== undefined) {
 		showOK = res.settings.showOK;
 	}
 	addListeners();
@@ -100,7 +100,11 @@ function addListeners() {
 													  'heading': res.settings.heading,
 													  'usingSettings': res.settings.usingSettings,
 													  'autosave': res.settings.autosave,
-													  'showOK': showing}});
+													  'showOK': showing}}, function() {
+													  	chrome.storage.sync.get('settings', function(res) {
+													  		console.log(res);
+													  	});
+													  });
 			});
 		});
 	});
