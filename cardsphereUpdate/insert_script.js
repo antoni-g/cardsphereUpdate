@@ -113,7 +113,7 @@ function changePackage(value, user, update) {
 	var id = user.hashCode().toString();
 	// OK button 
 	if (showOK) {
-		$(value).find('.button-div').prepend("<button type='button' id='"+id+"'class='bt btn-primary'>OK</button>");
+		$(value).find('.button-div').prepend("<button type='button' id='"+id+"'class='send-button btn btn-primary'>OK</button>");
 		$('#'+id).click(function(){
 			// recolor
 			if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {

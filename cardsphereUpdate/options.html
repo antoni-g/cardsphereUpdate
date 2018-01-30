@@ -10,6 +10,7 @@
 </head>
 
 <body>
+<div id='outer'>
 	<div id='heading' class='jumbotron' padding ='10px'>
 		<div class="paddedBox">
 			<h1>Options</h1>
@@ -18,38 +19,45 @@
 
 	<div id='options' class='optionBox'>
 		<div id='colorSelection'>
-			<p>Adjust the color of highlighted packages</p>
+			<div><p>Adjust the color of highlighted packages</p>
 			
-			<label for="headingColor">Heading color</label>
+			<label for="headingColor">Heading Color</label>
 			<input type='color' id="headingColor"/>
 			
-			<label for="bodyColor">Body color</label>
-			<input type='color' id="bodyColor"/>
-
+			<label for="bodyColor">Body Color</label>
+			<input type='color' id="bodyColor"/></div>
 			<div class="btn-group mr-2" role="group" id='colorButtons' aria-label="Color buttons">
     			<button type="button" id='saveColor' class="btn btn-secondary">Save Current</button>
     			<button type="button" id='default' class="btn btn-secondary">Revert to Default</button>
   			</div>
 		</div>
 		<hr / class='divider'>
+
 		<div id='checkOptions'>
-			<input class="form-check-input" type="checkbox" value="" id="saveSettings">
-  			<label class="form-check-label" for="saveSettings">
-    			Use last saved settings
+  			<label for="saveSettings" class="control control--checkbox">
+  				Use Last Saved Settings
+  				<input type="checkbox" value="" id="saveSettings">
+  				<div class="control__indicator"></div>
   			</label>
   			<hr / class='divider'>
-  			<input class="form-check-input" type="checkbox" value="" id="autosave">
-  			<label class="form-check-label" for="autosave" checked>
+
+  			<label class="control control--checkbox" for="autosave">
     			Autosave when visiting Cardsphere
+    			<input class="form-check-input" type="checkbox" value="" id="autosave">
+  				<div class="control__indicator"></div>
   			</label>
   			<hr / class='divider'>
-  			<input class="form-check-input" type="checkbox" value="" id="okButton">
-  			<label class="form-check-label" for="okButton" checked>
-    			show ok button
+
+  			
+  			<label class="control control--checkbox" for="okButton">
+  				Show OK Button
+  				<input class="form-check-input" type="checkbox" class="filled-in"value="" id="okButton">
+  				<div class="control__indicator"></div>
   			</label>
+  			</div>
 		</div>
 	</div>
-
+</div>
 	<script src="options.js"></script>
 </body>
 </html>
