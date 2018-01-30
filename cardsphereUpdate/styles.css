@@ -15,6 +15,11 @@ $color--secondary = #0E647D
     overflow: auto;
 }
 
+.outerBox {
+	padding: 40px;
+	width: 600px;
+}
+
 .paddedBox {
 	padding-left: 40px;
 }
