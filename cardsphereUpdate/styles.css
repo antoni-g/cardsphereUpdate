@@ -15,6 +15,18 @@ $color--secondary = #0E647D
     overflow: auto;
 }
 
+.colorOuter {
+	border: 1px solid red;
+	text-align:center;
+}
+
+.colorSelector {
+	margin:auto;
+	display: inline-block;
+	border: 1px solid grey;
+	padding: 10px;
+}
+
 .outerBox {
 	padding: 40px;
 	width: 600px;

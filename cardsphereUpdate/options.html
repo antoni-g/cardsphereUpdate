@@ -17,20 +17,24 @@
 	</div>
 <div id='outer' class='outerBox'>
 	<div id='options' class='optionBox'>
-		<div id='colorSelection'>
-			<div><p>Adjust the color of highlighted packages</p>
-			
-			<label for="headingColor">Heading Color</label>
-			<input type='color' id="headingColor"/>
-			
-			<label for="bodyColor">Body Color</label>
-			<input type='color' id="bodyColor"/></div>
-			<div class="btn-group mr-2" role="group" id='colorButtons' aria-label="Color buttons">
-    			<button type="button" id='saveColor' class="btn btn-secondary">Save Current</button>
-    			<button type="button" id='default' class="btn btn-secondary">Revert to Default</button>
-  			</div>
+		<div id='colorSelectionOuter' class="colorOuter">
+				<div id='headingColorBox' class="colorSelector">
+					<input type='color' id="headingColor"/>
+					<label for="headingColor">Heading Color</label>
+				</div>
+				<div id='bodyColorBox' class="colorSelector">
+					<input type='color' id="bodyColor"/>
+					<label for="bodyColor">Body Color</label>
+				</div>
+			</div>	
+			<div role="group" id='colorButtons' aria-label="Color buttons">
+	    		<button type="button" id='saveColor' class="btn">Save Current</button>
+	    		<button type="button" id='default' class="btn">Revert to Default</button>
+	  		</div>
 		</div>
+		<p><em>placeholder text</em></p>
 		<hr / class='divider'>
+		<br />
 
 		<div id='checkOptions'>
   			<label for="saveSettings" class="control control--checkbox">
@@ -38,14 +42,18 @@
   				<input type="checkbox" value="" id="saveSettings">
   				<div class="control__indicator"></div>
   			</label>
+  			<p><em>placeholder text</em></p>
   			<hr / class='divider'>
+  			<br />
 
   			<label class="control control--checkbox" for="autosave">
     			Autosave when visiting Cardsphere
     			<input class="form-check-input" type="checkbox" value="" id="autosave">
   				<div class="control__indicator"></div>
   			</label>
+  			<p><em>placeholder text</em></p>
   			<hr / class='divider'>
+  			<br />
 
   			
   			<label class="control control--checkbox" for="okButton">
@@ -53,6 +61,9 @@
   				<input class="form-check-input" type="checkbox" class="filled-in"value="" id="okButton">
   				<div class="control__indicator"></div>
   			</label>
+  			<p><em>placeholder text</em></p>
+  			<br />
+  			<br />
   			</div>
 		</div>
 	</div>
