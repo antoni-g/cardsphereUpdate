@@ -17,6 +17,7 @@
 	</div>
 <div id='outer' class='outerBox'>
 	<div id='options' class='optionBox'>
+		Highlight Coloring
 		<div id='colorSelectionOuter' class="colorOuter">
 				<div id='headingColorBox' class="colorSelector">
 					<input type='color' id="headingColor"/>
@@ -42,7 +43,7 @@
   				<input type="checkbox" value="" id="saveSettings">
   				<div class="control__indicator"></div>
   			</label>
-  			<p><em>placeholder text</em></p>
+  			<p><em>This setting only highlights new and updated packages when there is a set of saved packages for the exact package settings you have set on Cardsphere. You can turn this on or off at any time; any save notes settings and considers them only if this setting is selected.</em></p>
   			<hr / class='divider'>
   			<br />
 
@@ -51,7 +52,7 @@
     			<input class="form-check-input" type="checkbox" value="" id="autosave">
   				<div class="control__indicator"></div>
   			</label>
-  			<p><em>placeholder text</em></p>
+  			<p><em>With this selected, your saved packages will update as soon as you visit the Cardsphere send page.</em></p>
   			<hr / class='divider'>
   			<br />
 
@@ -61,10 +62,23 @@
   				<input class="form-check-input" type="checkbox" class="filled-in"value="" id="okButton">
   				<div class="control__indicator"></div>
   			</label>
-  			<p><em>placeholder text</em></p>
+  			<p><em>The OK button displays on highlighted packages, allowing you to updated your saved packages and un-highlight them after review.</em></p>
+  			<hr / class='divider'>
+  			<br />
+
+  			<label>
+  				Price Difference Threshold
+  				<div >
+  					<input type="range" min="0" max="20" value="2" class="slider" id="threshold">
+  					<span id="thresholdValue">val</span>
+  				</div>
+  			</label>
+  			<p><em>Since package values can change slightly as card indices update, this setting allows you set how much a package's price with otherwise saved contents has to change before it is highlighted again.</em></p>
   			<br />
   			<br />
-  			</div>
+  		</div>
+
+
 		</div>
 	</div>
 </div>

@@ -4,6 +4,7 @@ var bodyColor = '#FCF3CF';
 var autosaving = false;
 var savingSettings = false;
 var showOK = true;
+var threshVal = 4;
 chrome.storage.sync.get('settings', function(res) {
 	if (chrome.runtime.lastError) {
 		// TODO: proper error check. How to even get error?
@@ -23,11 +24,14 @@ chrome.storage.sync.get('settings', function(res) {
 	if (res.settings.showOK !== undefined) {
 		showOK = res.settings.showOK;
 	}
+	if (res.settings.threshold !== undefined) {
+		threshVal = res.settings.threshold;
+	}
 	addListeners();
 });
 
-function addListeners() {
 	// add button listeners
+function addListeners() {
 	$(document).ready(function() {
 		// first update colors and values
 		$("#headingColor").prop('value',headingColor);
@@ -50,7 +54,8 @@ function addListeners() {
 													  'heading': headingColor,
 													  'usingSettings': res.settings.usingSettings,
 													  'autosave': res.settings.autosave,
-													  'showOK': res.settings.showOK}});
+													  'showOK': res.settings.showOK,
+													  'threshold': res.settings.threshold}});
 			});
 		});
 		// default colors
@@ -70,7 +75,8 @@ function addListeners() {
 													  'heading': res.settings.heading,
 													  'usingSettings': using,
 													  'autosave': res.settings.autosave,
-													  'showOK': res.settings.showOK}});
+													  'showOK': res.settings.showOK,
+													  'threshold': res.settings.threshold}});
 			});
 		});
 		// autosave
@@ -85,7 +91,8 @@ function addListeners() {
 													  'heading': res.settings.heading,
 													  'usingSettings': res.settings.usingSettings,
 													  'autosave':autosaving,
-													  'showOK': res.settings.showOK}});
+													  'showOK': res.settings.showOK,
+													  'threshold': res.settings.threshold}});
 			});
 		});
 		// ok button
@@ -100,8 +107,26 @@ function addListeners() {
 													  'heading': res.settings.heading,
 													  'usingSettings': res.settings.usingSettings,
 													  'autosave': res.settings.autosave,
-													  'showOK': showing}});
+													  'showOK': showing,
+													  'threshold': res.settings.threshold}});
 			});
 		});
+		// price threshold
+		var slider = document.getElementById("threshold");
+		slider.value = threshVal;
+		$("#thresholdValue").text(threshVal*5+"%");
+		$('#threshold').attr("value", threshVal);
+		slider.oninput = function() {
+			var val = this.value;
+    		$("#thresholdValue").text(val*5+"%");
+    		chrome.storage.sync.get('settings', function(res) {
+				chrome.storage.sync.set({'settings': {'body': res.settings.body,
+													  'heading': res.settings.heading,
+													  'usingSettings': res.settings.usingSettings,
+													  'autosave': res.settings.autosave,
+													  'showOK': res.settings.showOK,
+													  'threshold': val}});
+			});
+		}
 	});
 }
