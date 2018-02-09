@@ -130,8 +130,8 @@ function addListeners() {
 		}
 		// defaults
 		$('#revertDefault').click(function() {
-			chrome.storage.sync.set({'settings': {'body': '#f7dc6f',
-													  'heading': '#FCF3CF',
+			chrome.storage.sync.set({'settings': {'body': '#FCF3CF',
+													  'heading': '#f7dc6f',
 													  'usingSettings': false,
 													  'autosave': false,
 													  'showOK': true,
