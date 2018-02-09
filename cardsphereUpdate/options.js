@@ -4,7 +4,7 @@ var bodyColor = '#FCF3CF';
 var autosaving = false;
 var savingSettings = false;
 var showOK = true;
-var threshVal = 4;
+var threshVal = 2;
 chrome.storage.sync.get('settings', function(res) {
 	if (chrome.runtime.lastError) {
 		// TODO: proper error check. How to even get error?
@@ -128,5 +128,22 @@ function addListeners() {
 													  'threshold': val}});
 			});
 		}
+		// defaults
+		$('#revertDefault').click(function() {
+			chrome.storage.sync.set({'settings': {'body': '#f7dc6f',
+													  'heading': '#FCF3CF',
+													  'usingSettings': false,
+													  'autosave': false,
+													  'showOK': true,
+													  'threshold': 2}});
+			// revert all displays to defaults
+			$("#headingColor").prop('value','#f7dc6f');
+			$("#bodyColor").prop('value','#FCF3CF');
+			$('#saveSettings').prop('checked', false);
+			$('#autosave').prop('checked', false);
+			$('#okButton').prop('checked', true);
+			slider.value = 2;
+			$("#thresholdValue").text("10%");
+		});
 	});
 }
