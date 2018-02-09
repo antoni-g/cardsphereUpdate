@@ -13,6 +13,7 @@ var headingColor = '#f7dc6f';
 var originalHeadingColor = $(".package-heading").not(".premium").first().css("background");
 var originalBodyColor = $(".package-body").first().css("background");
 var autosave = false;
+var threshold = 2;
 
 chrome.storage.sync.get('settings', function(res) {
 	//update settings if present
@@ -32,6 +33,9 @@ chrome.storage.sync.get('settings', function(res) {
 	}
 	if (res.settings.showOK !== undefined) {
 		showOK = res.settings.showOK;
+	}
+	if (res.settings.threshold !== undefined) {
+		threshold = res.settings.threshold;
 	}
 	// recolor packages
 	modifyPackages();
@@ -60,14 +64,12 @@ function modifyPackages() {
 	  				var price = $($(heading).children()[1]).find("strong").text();
 	  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
 	  				var contents =  $(value).find(".package-body").text().hashCode();
+	  				//price thresholding
+	  				var thresh = threshold*5/100;
+	  				var upperBound = price+(price*thresh);
+	  				var lowerBound = price-(price*thresh);
 	  				//first check user
 	  				if (res[targetStored][username] === undefined) {
-	  					changing = true;
-	  					updated = true;
-						count++;
-	  				}
-	  				// then price
-	  				else if (res[targetStored][username].price !== price) {
 	  					changing = true;
 	  					updated = true;
 						count++;
@@ -84,6 +86,13 @@ function modifyPackages() {
 	  					updated = true;
 						count++;
 	  				}
+	  				// then finally, price
+	  				else if ((res[targetStored][username].price > upperBound) || (res[targetStored][username].price < lowerBound)) {
+	  					changing = true;
+	  					updated = true;
+						count++;
+	  				}
+
 	  				if (changing) {
 		  				// then  change color of package
 		  				update = {'price': price, 'efficiency': efficiency,'contents': contents};

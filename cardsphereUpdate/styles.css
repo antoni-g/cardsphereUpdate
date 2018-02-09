@@ -63,7 +63,7 @@ $color--secondary = #0E647D
     width: 25px;
     height: 25px;
     border-radius: 50%; 
-    background: #7491c1;
+    background: #0e647d;
     cursor: pointer;
 }
 
@@ -71,8 +71,11 @@ $color--secondary = #0E647D
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #7491c1;
+    background: #0e647d;
     cursor: pointer;
+}
+.slider_label{
+  font-size: 18px;
 }
 
 
