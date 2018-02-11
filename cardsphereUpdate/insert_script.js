@@ -158,7 +158,7 @@ function insertDate() {
 		else if (noData && (targetStored != 'saved')) {
 			msg = msg = '<span class="caret"></span> Package Controls <font color="red">(No data stored for these selected settings! Use the extension to save data for a comparison.)</font>';
 		}
-		else if (updated === false) {
+		else if (updated === false || count === 0) {
 			msg = '<span class="caret"></span> Package Controls <font color="red">(Packages last saved on '+time+'. There have been no changes.)</font>';
 		}
 		else if (count === 1) {
