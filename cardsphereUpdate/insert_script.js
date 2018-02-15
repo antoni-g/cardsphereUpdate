@@ -65,9 +65,15 @@ function modifyPackages() {
 	  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
 	  				var contents =  $(value).find(".package-body").text().hashCode();
 	  				//price thresholding
+	  				var ogPrice = res[targetStored][username].price;
+	  				ogPrice = Number(ogPrice.replace(/[^0-9\.-]+/g,""));
+	  				var priceParsed = Number(price.replace(/[^0-9\.-]+/g,""));
 	  				var thresh = threshold*5/100;
-	  				var upperBound = price+(price*thresh);
-	  				var lowerBound = price-(price*thresh);
+	  				var upperBound = ogPrice+(ogPrice*thresh);
+	  				var lowerBound = ogPrice-(ogPrice*thresh);
+	  				console.log('price:'+ogPrice);
+	  				console.log('thresh,upper,lower');
+	  				console.log(thresh+','+upperBound+','+lowerBound);
 	  				//first check user
 	  				if (res[targetStored][username] === undefined) {
 	  					changing = true;
@@ -87,7 +93,7 @@ function modifyPackages() {
 						count++;
 	  				}
 	  				// then finally, price
-	  				else if ((res[targetStored][username].price > upperBound) || (res[targetStored][username].price < lowerBound)) {
+	  				else if ((priceParsed > upperBound) || (priceParsed < lowerBound)) {
 	  					changing = true;
 	  					updated = true;
 						count++;
