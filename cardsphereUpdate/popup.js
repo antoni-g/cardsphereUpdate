@@ -52,7 +52,7 @@ function savePackages() {
 
     var d = new Date();
     document.getElementById('alert').style.display = 'block';
-    $('#alert').text('Saved! At '+d.toString());
+    $('#alert').text('Saved! At '+dateFormat(d.toString(), "dddd, mmmm dS, yyyy, h:MM:ss TT"));
     $('#alert').hover(function() {
         $(this).css('color', 'red');
     });

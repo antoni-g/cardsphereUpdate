@@ -8,7 +8,7 @@
 
   "background":
     {
-        "scripts": ["jquery-3.2.1.min.js"]
+        "scripts": ["jquery-3.2.1.min.js","dateformat.js"]
     },
   "content_scripts": [
     {

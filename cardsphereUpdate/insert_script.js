@@ -65,17 +65,26 @@ function modifyPackages() {
 	  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
 	  				var contents =  $(value).find(".package-body").text().hashCode();
 	  				//price thresholding
-	  				var ogPrice = res[targetStored][username].price;
-	  				ogPrice = Number(ogPrice.replace(/[^0-9\.-]+/g,""));
-	  				var priceParsed = Number(price.replace(/[^0-9\.-]+/g,""));
-	  				var thresh = threshold*5/100;
-	  				var upperBound = ogPrice+(ogPrice*thresh);
-	  				var lowerBound = ogPrice-(ogPrice*thresh);
-	  				console.log('price:'+ogPrice);
-	  				console.log('thresh,upper,lower');
-	  				console.log(thresh+','+upperBound+','+lowerBound);
+	  				var present = false;
+	  				var ogPrice;
+	  				var thresh;
+	  				var upperBound;
+	  				var lowerBound;
+	  				var priceParsed;
+	  				if (res[targetStored][username] !== undefined) {
+	  					present = true;
+	  					ogPrice = res[targetStored][username].price;
+	  					ogPrice = Number(ogPrice.replace(/[^0-9\.-]+/g,""));
+	  					thresh = threshold*5/100;
+	  					upperBound = ogPrice+(ogPrice*thresh);
+	  					lowerBound = ogPrice-(ogPrice*thresh);
+	  					priceParsed = Number(price.replace(/[^0-9\.-]+/g,""));
+	  					console.log('price:'+ogPrice);
+	  					console.log('thresh,upper,lower');
+	  					console.log(thresh+','+upperBound+','+lowerBound);
+	  				}
 	  				//first check user
-	  				if (res[targetStored][username] === undefined) {
+	  				if (!present) {
 	  					changing = true;
 	  					updated = true;
 						count++;
@@ -98,7 +107,6 @@ function modifyPackages() {
 	  					updated = true;
 						count++;
 	  				}
-
 	  				if (changing) {
 		  				// then  change color of package
 		  				update = {'price': price, 'efficiency': efficiency,'contents': contents};
@@ -158,6 +166,7 @@ function insertDate() {
 		// TODO format this time string better
 		var key = targetStored+'_last_accessed'
 		var time = res[key];
+		time = dateFormat(time, "dddd, mmmm dS, yyyy, h:MM:ss TT");
 		if (res === undefined || $.isEmptyObject(res)) {
 			msg = '<span class="caret"></span> Package Controls <font color="red">(No data stored for CSUpdate! Use the extension to save data for a comparison.)</font>';
 		}
@@ -196,3 +205,4 @@ function getSettings() {
           'sort': $('select[name=sort] :selected').val(),
           'maximize': $('select[name=package] :selected').val()}
 }
+
