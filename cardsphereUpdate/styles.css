@@ -16,15 +16,24 @@ $color--secondary = #0E647D
 }
 
 .colorOuter {
+	float: left;
 	border: 1px solid red;
 	text-align:center;
 }
 
+.infoOuter {
+	float: left;
+	clear: both;
+}
+
 .colorSelector {
 	margin:auto;
+	float: left;
 	display: inline-block;
 	border: 1px solid grey;
-	padding: 10px;
+	margin:auto;
+	padding: 12px;
+	width: 200px;
 }
 
 .outerBox {
