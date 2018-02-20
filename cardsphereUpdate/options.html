@@ -60,18 +60,20 @@
   		<label class="slider_label" for="colorSelectionOuter">Highlight Coloring</label>
   		<br />
 		<div id='colorSelectionOuter' class="colorOuter">
-			<div id='headingColorBox' class="colorSelector">
-				<label for="headingColor">Heading Color</label>
-				<hr />
-				<input type='color' width="200px" id="headingColor"/>
+				<div id='headingColorBox' class="colorSelector">
+					<label for="headingColor">Heading Color</label>
+					<hr />
+					<input type='color' width="200px" id="headingColor"/>
+				</div>
+				<div class="hspacer"></div>
+				<div id='bodyColorBox' class="colorSelector">
+					<label for="bodyColor">Body Color</label>
+					<hr />
+					<input type='color' id="bodyColor"/>
+				</div>
 			</div>
-			<div id='bodyColorBox' class="colorSelector">
-				<label for="bodyColor">Body Color</label>
-				<hr />
-				<input type='color' id="bodyColor"/>
-			</div>
-		</div>	
-		<div id="colorInfo" class="infoOuter"> 
+			<hr / class='vspacer'>
+			<div id="colorInfo" class="infoOuter"> 
 			<div role="group" id='colorButtons' aria-label="Color buttons">
 		    	<button type="button" id='saveColor' class="btn">Save Current</button>
 		    	<button type="button" id='default' class="btn">Default Yellow</button>
@@ -79,12 +81,14 @@
 
 		  	<p><em>The displayed color of highlighted packages can be changed at any time or reverted to the default yellow.</em></p>
 	  	</div>
+		</div>	
+		
 		<hr / class='divider'>
 		<br />
 
 		<button type="button" id='revertDefault' class="btn">Revert Settings to Default</button>
   		<br />
-  		<p><em>Please report any bugs, provide feedback, or suggest features at akgdevelopment@gmail.com!</em></p>
+  		<p><em>Please report any bugs, provide feedback, or suggest features at  <a href="mailto:akgdevelopment@gmail.com">akgdevelopment@gmail.com</a>!</em></p>
   		<br/>
 	</div>		
 </div>

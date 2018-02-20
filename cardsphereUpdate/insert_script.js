@@ -16,26 +16,31 @@ var autosave = false;
 var threshold = 2;
 
 chrome.storage.sync.get('settings', function(res) {
-	//update settings if present
-	if (res.settings.body !== undefined) {
-		bodyColor = res.settings.body;
+	if (res.settings === undefined) {
+		// do nothing
 	}
-	if (res.settings.heading !== undefined) { 
-		headingColor = res.settings.heading;
-	}
-	if (res.settings.usingSettings !== undefined) {
-		if (res.settings.usingSettings) {
-			targetStored = JSON.stringify(getSettings()).hashCode().toString();
+	else {
+		//update settings if present
+		if (res.settings.body !== undefined) {
+			bodyColor = res.settings.body;
 		}
-	}
-	if (res.settings.autosave !== undefined) {
-		autosave = res.settings.autosave;
-	}
-	if (res.settings.showOK !== undefined) {
-		showOK = res.settings.showOK;
-	}
-	if (res.settings.threshold !== undefined) {
-		threshold = res.settings.threshold;
+		if (res.settings.heading !== undefined) { 
+			headingColor = res.settings.heading;
+		}
+		if (res.settings.usingSettings !== undefined) {
+			if (res.settings.usingSettings) {
+				targetStored = JSON.stringify(getSettings()).hashCode().toString();
+			}
+		}
+		if (res.settings.autosave !== undefined) {
+			autosave = res.settings.autosave;
+		}
+		if (res.settings.showOK !== undefined) {
+			showOK = res.settings.showOK;
+		}
+		if (res.settings.threshold !== undefined) {
+			threshold = res.settings.threshold;
+		}
 	}
 	// recolor packages
 	modifyPackages();

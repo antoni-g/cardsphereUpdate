@@ -6,26 +6,29 @@ var savingSettings = false;
 var showOK = true;
 var threshVal = 2;
 chrome.storage.sync.get('settings', function(res) {
-	if (chrome.runtime.lastError) {
+	if (chrome.runtime.lastError || res.settings === undefined) {
 		// TODO: proper error check. How to even get error?
+		// do nothing
 	}
-	if (res.settings.body !== undefined) {
-		bodyColor = res.settings.body;
-	}
-	if (res.settings.heading !== undefined) { 
-		headingColor = res.settings.heading;
-	}
-	if (res.settings.autosave !== undefined) {
-		autosaving = res.settings.autosave;
-	}
-	if (res.settings.autosave !== undefined) {
-		savingSettings = res.settings.usingSettings;
-	}
-	if (res.settings.showOK !== undefined) {
-		showOK = res.settings.showOK;
-	}
-	if (res.settings.threshold !== undefined) {
-		threshVal = res.settings.threshold;
+	else {
+		if (res.settings.body !== undefined) {
+			bodyColor = res.settings.body;
+		}
+		if (res.settings.heading !== undefined) { 
+			headingColor = res.settings.heading;
+		}
+		if (res.settings.autosave !== undefined) {
+			autosaving = res.settings.autosave;
+		}
+		if (res.settings.autosave !== undefined) {
+			savingSettings = res.settings.usingSettings;
+		}
+		if (res.settings.showOK !== undefined) {
+			showOK = res.settings.showOK;
+		}
+		if (res.settings.threshold !== undefined) {
+			threshVal = res.settings.threshold;
+		}
 	}
 	addListeners();
 });

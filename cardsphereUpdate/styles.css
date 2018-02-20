@@ -15,22 +15,36 @@ $color--secondary = #0E647D
     overflow: auto;
 }
 
+p {
+	font-size:13px;
+}
+
 .colorOuter {
 	float: left;
-	border: 1px solid red;
 	text-align:center;
 }
 
 .infoOuter {
 	float: left;
 	clear: both;
+	margin:auto;
+}
+
+.hspacer {
+	float: left;
+  display: inline-block;
+	width:8px;
+  height:1px;
+  margin:auto;
 }
 
 .colorSelector {
-	margin:auto;
+	border-color: #E6E6E6;
+	border-style: solid;
+	border-radius: 6px;
+	outline-offset: 8px;
 	float: left;
 	display: inline-block;
-	border: 1px solid grey;
 	margin:auto;
 	padding: 12px;
 	width: 200px;
@@ -52,6 +66,19 @@ $color--secondary = #0E647D
   margin: 9px 0;
   overflow: hidden;
   background-color: #e5e5e5;
+}
+
+.vspacer {
+	visibility: hidden;
+
+	clear:both;
+  height: 8px;
+  width:100%;
+  display:block;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #FFFFFF;
+
 }
 
 .slider {
