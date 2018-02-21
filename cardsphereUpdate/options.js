@@ -199,7 +199,7 @@ function addListeners() {
 			// revert all displays to defaults
 			$("#headingColor").prop('value','#f7dc6f');
 			$("#bodyColor").prop('value','#FCF3CF');
-			$("#bodyColor").prop('value','#FF0000');
+			$("#flagColor").prop('value','#FF0000');
 			$('#saveSettings').prop('checked', false);
 			$('#autosave').prop('checked', false);
 			$('#okButton').prop('checked', true);

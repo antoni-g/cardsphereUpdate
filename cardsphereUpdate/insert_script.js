@@ -119,18 +119,22 @@ function modifyPackages() {
 		  				}
 		  				// else check package contents (is this going to be too slow?)
 		  				if (res[targetStored][username].contents !== contents) {
-		  					changing = true;
-		  					updated = true;
-							count++;
+		  					if (!changing) {
+		  						count++;
+		  						changing = true;
+		  						updated = true;
+		  					}
 							// insert flag
 							index++;
 							flags[index] = "Contents";
 		  				}
 		  				// then finally, price
 		  				if ((priceParsed > upperBound) || (priceParsed < lowerBound)) {
-		  					changing = true;
-		  					updated = true;
-							count++;
+		  					if (!changing) {
+		  						count++;
+		  						changing = true;
+		  						updated = true;
+		  					}
 							// insert flag
 							index++;
 							flags[index] = "Price";
