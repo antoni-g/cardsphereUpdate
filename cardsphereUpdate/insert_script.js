@@ -64,12 +64,16 @@ function modifyPackages() {
 	  				// check by heading
 	  				var heading = $(value).find(".package-heading");
 	  				var changing = false;
-	  				//find elements
+	  				// find elements
 	  				var username = $($(heading).children()[0]).find("a").text();
 	  				var price = $($(heading).children()[1]).find("strong").text();
 	  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
+	  				var parsedEffi = efficiency.trim().split(" ")[0];
 	  				var contents =  $(value).find(".package-body").text().hashCode();
-	  				//price thresholding
+	  				// insert flag
+	  				var flags = {};
+	  				var index = -1;
+	  				// price thresholding
 	  				var present = false;
 	  				var ogPrice;
 	  				var thresh;
@@ -84,38 +88,62 @@ function modifyPackages() {
 	  					upperBound = ogPrice+(ogPrice*thresh);
 	  					lowerBound = ogPrice-(ogPrice*thresh);
 	  					priceParsed = Number(price.replace(/[^0-9\.-]+/g,""));
-	  					console.log('price:'+ogPrice);
-	  					console.log('thresh,upper,lower');
-	  					console.log(thresh+','+upperBound+','+lowerBound);
 	  				}
-	  				//first check user
+	  				// first check user
 	  				if (!present) {
 	  					changing = true;
 	  					updated = true;
 						count++;
+						// insert flag
+						index++;
+						flags[index] = "Unsaved package";
 	  				}
-	  				// then efficiency 
-	  				else if (res[targetStored][username].efficiency !== efficiency) {
-	  					changing = true;
-	  					updated = true;
-						count++;
-	  				}
-	  				// else check package contents (is this going to be too slow?)
-	  				else if (res[targetStored][username].contents !== contents) {
-	  					changing = true;
-	  					updated = true;
-						count++;
-	  				}
-	  				// then finally, price
-	  				else if ((priceParsed > upperBound) || (priceParsed < lowerBound)) {
-	  					changing = true;
-	  					updated = true;
-						count++;
+	  				else {
+	  					// then efficiency 
+		  				if (res[targetStored][username].efficiency.trim().split(" ")[0] !== parsedEffi) {
+		  					changing = true;
+		  					updated = true;
+							count++;
+							// insert flag
+							index++;
+							flags[index] = "Efficiency";
+		  				}
+		  				// else check package contents (is this going to be too slow?)
+		  				if (res[targetStored][username].contents !== contents) {
+		  					changing = true;
+		  					updated = true;
+							count++;
+							// insert flag
+							index++;
+							flags[index] = "Contents";
+		  				}
+		  				// then finally, price
+		  				if ((priceParsed > upperBound) || (priceParsed < lowerBound)) {
+		  					changing = true;
+		  					updated = true;
+							count++;
+							// insert flag
+							index++;
+							flags[index] = "Price";
+		  				}
 	  				}
 	  				if (changing) {
 		  				// then  change color of package
 		  				update = {'price': price, 'efficiency': efficiency,'contents': contents};
-		  				changePackage(value, username, update);
+		  				// construct flag
+		  				var flagString = "Changes: ";
+		  				if (index === 0) {
+		  					flagString += flags[0];
+		  				}
+		  				else if (index > 0) {
+		  					for (var i = 0; i++; i < index) {
+		  						flagString += flags[i];
+		  						flagString += ", ";
+		  					}
+		  					flagString += flags[index];
+		  				}
+		  				console.log(flagString);
+		  				changePackage(value, username, update, flagString);
 		  			}
 	  			});
 				// once done, insert the last saved date
@@ -130,19 +158,22 @@ function modifyPackages() {
 	});
 }
 
-function changePackage(value, user, update) {
+function changePackage(value, user, update, flags) {
 	// first change the color of the package
 	if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
 		$(value).find('.package-heading').css("background", headingColor);
 	}
 	$(value).find('.package-body').css("background", bodyColor);
 	$(value).find('.package-footer').css("background", bodyColor);
-	// then insert the ok button
+	// get id
 	var id = user.hashCode().toString();
+	// insert change flags
+	$(value).find('.package-body').append("<p style='color:red;' id='"+id+"Flag'>"+flags+"</p>");
+	// then insert the ok button0
 	// OK button 
 	if (showOK) {
-		$(value).find('.button-div').prepend("<button type='button' id='"+id+"'class='send-button btn btn-primary'>OK</button>");
-		$('#'+id).click(function(){
+		$(value).find('.button-div').prepend("<button type='button' id='"+id+"Button'class='send-button btn btn-primary'>OK</button>");
+		$('#'+id+"Button").click(function(){
 			// recolor
 			if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {
 				$(value).find('.package-heading').css("background", originalHeadingColor);
@@ -157,7 +188,8 @@ function changePackage(value, user, update) {
 			});
 			count--;
 			// finally, hide button and update package count
-			$('#'+id).hide();
+			$('#'+id+'Button').hide();
+			$('#'+id+'Flag').hide();
 			insertDate();
 		});
 	}
