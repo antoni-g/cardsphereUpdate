@@ -10,10 +10,13 @@ var noData = false;
 // color data
 var bodyColor = '#FCF3CF';
 var headingColor = '#f7dc6f';
+var flagColor = '#ff0000';
 var originalHeadingColor = $(".package-heading").not(".premium").first().css("background");
 var originalBodyColor = $(".package-body").first().css("background");
+// settings
 var autosave = false;
 var threshold = 2;
+var flagsInsert = true;
 
 chrome.storage.sync.get('settings', function(res) {
 	if (res.settings === undefined) {
@@ -40,6 +43,12 @@ chrome.storage.sync.get('settings', function(res) {
 		}
 		if (res.settings.threshold !== undefined) {
 			threshold = res.settings.threshold;
+		}
+		if (res.settings.flags !== undefined) {
+			flagsInsert = res.settings.flags;
+		}
+		if (res.settings.flagColor !== undefined) {
+			flagColor = res.settings.flagColor;
 		}
 	}
 	// recolor packages
@@ -96,7 +105,7 @@ function modifyPackages() {
 						count++;
 						// insert flag
 						index++;
-						flags[index] = "Unsaved package";
+						flags[index] = "Unsaved Package";
 	  				}
 	  				else {
 	  					// then efficiency 
@@ -132,7 +141,10 @@ function modifyPackages() {
 		  				update = {'price': price, 'efficiency': efficiency,'contents': contents};
 		  				// construct flag
 		  				var flagString = "Changes: ";
-		  				if (index === 0) {
+		  				if (flags[0] == "Unsaved Package") {
+		  					flagString = flags[0];
+		  				}
+		  				else if (index === 0) {
 		  					flagString += flags[0];
 		  				}
 		  				else if (index > 0) {
@@ -142,7 +154,6 @@ function modifyPackages() {
 		  					}
 		  					flagString += flags[index];
 		  				}
-		  				console.log(flagString);
 		  				changePackage(value, username, update, flagString);
 		  			}
 	  			});
@@ -150,7 +161,6 @@ function modifyPackages() {
 				insertDate();
 				// finally, autosave if necessary 
 				if (autosave) {
-					console.log('gonna autosave');
 					chrome.runtime.sendMessage({func: "autosave"}, function(response) {});
 				}
 			});
@@ -167,9 +177,10 @@ function changePackage(value, user, update, flags) {
 	$(value).find('.package-footer').css("background", bodyColor);
 	// get id
 	var id = user.hashCode().toString();
-	// insert change flags
-	$(value).find('.package-body').append("<p style='color:red;' id='"+id+"Flag'>"+flags+"</p>");
-	// then insert the ok button0
+	if (flagsInsert) {
+		// insert change flags
+		$(value).find('.package-body').append("<p style='color:"+flagColor+";' id='"+id+"Flag'><b>"+flags+"</b></p>");
+	}
 	// OK button 
 	if (showOK) {
 		$(value).find('.button-div').prepend("<button type='button' id='"+id+"Button'class='send-button btn btn-primary'>OK</button>");
@@ -189,7 +200,9 @@ function changePackage(value, user, update, flags) {
 			count--;
 			// finally, hide button and update package count
 			$('#'+id+'Button').hide();
-			$('#'+id+'Flag').hide();
+			if (flagsInsert) {
+				$('#'+id+'Flag').hide();
+			}
 			insertDate();
 		});
 	}

@@ -32,10 +32,20 @@
 
   		<label class="control control--checkbox" for="okButton">
   			Show OK Button
-  			<input class="form-check-input" type="checkbox" class="filled-in"value="" id="okButton">
+  			<input class="form-check-input" type="checkbox" class="filled-in" value="" id="okButton">
   			<div class="control__indicator"></div>
   		</label>
   		<p><em>The OK button displays on highlighted packages, allowing you to updated your saved packages and un-highlight them after review.</em></p>
+  		<hr / class='vspacer'>
+  		<hr / class='divider'>
+  		<br />
+
+  		<label class="control control--checkbox" for="flagButton">
+  			Show Flags
+  			<input class="form-check-input" type="checkbox" class="filled-in" value="" id="flagButton">
+  			<div class="control__indicator"></div>
+  		</label>
+  		<p><em>Flags display what changed since the package was updated.</em></p>
   		<hr / class='vspacer'>
   		<hr / class='divider'>
   		<br />
@@ -75,12 +85,18 @@
 					<hr />
 					<input type='color' id="bodyColor"/>
 				</div>
+				<hr / class='vspacer'>
+				<div id='flagColorBox' class="colorSelector">
+					<label for="flagColor">Flag Color</label>
+					<hr />
+					<input type='color' id="flagColor"/>
+				</div>
 			</div>
 			<hr / class='vspacer'>
 			<div id="colorInfo" class="infoOuter"> 
 			<div role="group" id='colorButtons' aria-label="Color buttons">
 		    	<button type="button" id='saveColor' class="btn">Save Current</button>
-		    	<button type="button" id='default' class="btn">Default Yellow</button>
+		    	<button type="button" id='default' class="btn">Default Colors</button>
 		  	</div>
 
 		  	<p><em>The displayed color of highlighted packages can be changed at any time or reverted to the default yellow.</em></p>
