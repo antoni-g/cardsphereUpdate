@@ -15,7 +15,7 @@ function save() {
     var username = $($(heading).children()[0]).find("a").text();
     var price = $($(heading).children()[1]).find("strong").text();
     var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
-    var contents =  ($(value).find(".package-body").text()).hashCode();
+    var contents =  prepContents($(value).find(".package-body").text());
     saved[username] = {'price': price, 'efficiency': efficiency,'contents': contents};
   });
   // store settings
@@ -48,3 +48,24 @@ function getSettings() {
           'sort': $('select[name=sort] :selected').val(),
           'maximize': $('select[name=package] :selected').val()}
 }
+
+function prepContents(contents) {
+  contents = contents.split(/\s/g).clean("").clean("of");
+  for (var i = 0; i < contents.length; i++) {
+    if (contents[i].includes("$") || contents[i].includes("%")) {
+      contents[i] = "";
+    }
+  }
+  contents.clean("");
+  return contents.join(" ").hashCode();
+}
+
+Array.prototype.clean = function(deleteValue) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] == deleteValue) {         
+      this.splice(i, 1);
+      i--;
+    }
+  }
+  return this;
+};
