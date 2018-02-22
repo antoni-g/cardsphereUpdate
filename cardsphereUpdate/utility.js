@@ -28,10 +28,6 @@ function prepContents(contents) {
 	return contents.join(" ").hashCode();
 }
 
-function prepEfficiency(effi) {
-  
-}
-
 Array.prototype.clean = function(deleteValue) {
   for (var i = 0; i < this.length; i++) {
     if (this[i] == deleteValue) {         

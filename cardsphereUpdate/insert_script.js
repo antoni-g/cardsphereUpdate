@@ -117,6 +117,10 @@ function modifyPackages() {
 							count++;
 							// insert flag
 							index++;
+							console.log("flag for " + username);
+							console.log("stored vs actual");
+							console.log(res[targetStored][username].efficiency.trim().split(" ")[0]);
+							console.log(parsedEffi);
 							flags[index] = "Efficiency";
 		  				}
 		  				// else check package contents (is this going to be too slow?)
@@ -128,6 +132,10 @@ function modifyPackages() {
 		  					}
 							// insert flag
 							index++;
+							console.log("flag for " + username);
+							console.log("stored vs actual");
+							console.log(res[targetStored][username].contents);
+							console.log(contents);
 							flags[index] = "Contents";
 		  				}
 		  				// then finally, price
@@ -139,6 +147,10 @@ function modifyPackages() {
 		  					}
 							// insert flag
 							index++;
+							console.log("flag for " + username);
+							console.log("stored vs actual");
+							console.log(upperBound + ", " + lowerBound);
+							console.log(priceParsed);
 							flags[index] = "Price";
 		  				}
 	  				}
@@ -146,20 +158,19 @@ function modifyPackages() {
 		  				// then  change color of package
 		  				update = {'price': price, 'efficiency': parsedEffi,'contents': contents};
 		  				// construct flag
+		  				console.log(flags)
 		  				var flagString = "Changes: ";
 		  				if (flags[0] == "Unsaved Package") {
 		  					flagString = flags[0];
 		  				}
-		  				else if (index === 0) {
-		  					flagString += flags[0];
-		  				}
-		  				else if (index > 0) {
-		  					for (var i = 0; i++; i < index) {
+		  				else  {
+		  					for (var i = 0; i < index; i++) {
 		  						flagString += flags[i];
 		  						flagString += ", ";
 		  					}
 		  					flagString += flags[index];
 		  				}
+		  				console.log(flagString)
 		  				changePackage(value, username, update, flagString);
 		  			}
 	  			});
