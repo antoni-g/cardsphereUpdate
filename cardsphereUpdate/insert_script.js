@@ -78,7 +78,11 @@ function modifyPackages() {
 	  				var price = $($(heading).children()[1]).find("strong").text();
 	  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
 	  				var parsedEffi = efficiency.trim().split(" ")[0];
-	  				var contents =  $(value).find(".package-body").text().hashCode();
+	  				var contents =  $(value).find(".package-body").text();
+	  				prepContents(contents);
+	  				
+	  				contents = contents.hashCode();
+
 	  				// insert flag
 	  				var flags = {};
 	  				var index = -1;
@@ -260,3 +264,26 @@ function getSettings() {
           'maximize': $('select[name=package] :selected').val()}
 }
 
+var dollar = new RegExp('\$.*');
+var percent = new RegExp('.*\%');
+function prepContents(contents) {
+	contents = contents.split(/\s/g).clean("").clean("or");
+	for (var i = 0; i < contents.length; i++) {
+		if (contents.match(dollar) || contents.match(percent)) {
+			contents[i] == "";
+			console.log(contents[i]);
+		}
+	}
+	console.log(contents);
+	return contents;
+}
+
+Array.prototype.clean = function(deleteValue) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] == deleteValue) {         
+      this.splice(i, 1);
+      i--;
+    }
+  }
+  return this;
+};
