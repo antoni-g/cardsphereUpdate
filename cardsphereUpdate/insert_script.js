@@ -77,7 +77,7 @@ function modifyPackages() {
 	  				var username = $($(heading).children()[0]).find("a").text();
 	  				var price = $($(heading).children()[1]).find("strong").text();
 	  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
-	  				var parsedEffi = efficiency.trim().split(" ")[0];
+	  				var parsedEffi = efficiency.trim().split(" ")[0].replace(/\n/g, '');
 	  				var contents =  $(value).find(".package-body").text();
 	  				contents = prepContents(contents);
 
@@ -144,7 +144,7 @@ function modifyPackages() {
 	  				}
 	  				if (changing) {
 		  				// then  change color of package
-		  				update = {'price': price, 'efficiency': efficiency,'contents': contents};
+		  				update = {'price': price, 'efficiency': parsedEffi,'contents': contents};
 		  				// construct flag
 		  				var flagString = "Changes: ";
 		  				if (flags[0] == "Unsaved Package") {
@@ -207,7 +207,7 @@ function changePackage(value, user, update, flags) {
 			// finally, hide button and update package count
 			$('#'+id+'Button').hide();
 			if (flagsInsert) {
-				$('#'+id+'Flag').hide();
+				$('#'+id+'Flag').css("visibility", "hidden");
 			}
 			insertDate();
 		});
@@ -236,49 +236,10 @@ function insertDate() {
 			msg = "<span class='caret'></span> Package Controls <font color='"+flagColor+"'>(Packages last saved on "+time+". There is 1 new or different package.)</font>";
 		}
 		else {
-			msg = "<span class='caret'></span> Package Controls <font color='"+flagColor+"'>(Packages last saved on "+time+". There are '+count+' new or different packages.)</font>";
+			msg = "<span class='caret'></span> Package Controls <font color='"+flagColor+"'>(Packages last saved on "+time+". There are "+count+" new or different packages.)</font>";
 		}
 		var top = document.getElementById('filter-btn');
 		top.innerHTML = msg;
 	});
 }
 
-String.prototype.hashCode = function() {
-  var hash = 0, i, chr;
-  if (this.length === 0) return hash;
-  for (i = 0; i < this.length; i++) {
-    chr   = this.charCodeAt(i);
-    hash  = ((hash << 5) - hash) + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return hash;
-};
-
-function getSettings() {
-  return {'countries': $('#countries').val(),
-          'cutoff': $('#cutoff').val(),
-          'min-package': $('#min-package').val(),
-          'sort': $('select[name=sort] :selected').val(),
-          'maximize': $('select[name=package] :selected').val()}
-}
-
-function prepContents(contents) {
-	contents = contents.split(/\s/g).clean("").clean("of");
-	for (var i = 0; i < contents.length; i++) {
-		if (contents[i].includes("$") || contents[i].includes("%")) {
-			contents[i] = "";
-		}
-	}
-	contents.clean("");
-	return contents.join(" ").hashCode();
-}
-
-Array.prototype.clean = function(deleteValue) {
-  for (var i = 0; i < this.length; i++) {
-    if (this[i] == deleteValue) {         
-      this.splice(i, 1);
-      i--;
-    }
-  }
-  return this;
-};

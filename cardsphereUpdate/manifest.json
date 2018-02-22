@@ -8,12 +8,12 @@
 
   "background":
     {
-        "scripts": ["jquery-3.2.1.min.js","dateformat.js"]
+        "scripts": ["jquery-3.2.1.min.js","utility.js","dateformat.js"]
     },
   "content_scripts": [
     {
       "matches": ["https://www.cardsphere.com/send"],
-      "js": ["jquery-3.2.1.min.js","dateformat.js","insert_script.js","save.js"]
+      "js": ["jquery-3.2.1.min.js","utility.js","dateformat.js","insert_script.js","save.js"]
     }
   ],
   "browser_action": {
