@@ -1,0 +1,37 @@
+{
+  "manifest_version": 2,
+
+  "name": "Cardsphere Update",
+  "description": "Streamlines your Cardsphere experience by highlighting updates each time you visit the send page.",
+  "version": "1.0.0",
+  "version_name": "1.0.0 beta",
+
+  "background":
+    {
+        "scripts": ["jquery-3.2.1.min.js","utility.js","dateformat.js"]
+    },
+  "content_scripts": [
+    {
+      "matches": ["https://www.cardsphere.com/send"],
+      "js": ["jquery-3.2.1.min.js","utility.js","dateformat.js","insert_script.js","save.js"]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icon48.png",
+    "default_popup": "popup.html"
+  },
+  "icons": { 
+    "48": "icon48.png",
+    "128": "icon128.png" 
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "unlimitedStorage"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  }
+}
