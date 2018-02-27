@@ -24,4 +24,4 @@ Chrome plugin to improve <a href="https://www.cardsphere.com">Cardsphere</a> fun
 - enable use of chrome sync storage for package contents - currently, saving has too many keys, maxing out seeming around 180 or so keys. Nesting keys one layer further inside object? Or is even with hashing this too much data to be stored over sync? 
 
 ## Known Bugs
-- ~~Hash saved by contents with the 'save.js' method differ from those generated when compared saved with 'insert_script.js', leading to flags~~ (Fixed 2/27/2018, 24765015436a1476c8662e51b7bb2fef75dbc69b. Package selector was grabbing flags - workaround by selecting only specific children containing package contents).
+- ~~Hash saved by contents with the 'save.js' method differ from those generated when compared saved with 'insert_script.js', leading to flags~~ *(Fixed 2/27/2018, 24765015436a1476c8662e51b7bb2fef75dbc69b. Package selector was grabbing flags - workaround by selecting only specific children containing package contents)*.
