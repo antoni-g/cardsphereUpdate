@@ -19,6 +19,12 @@ p {
 	font-size:13px;
 }
 
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .colorOuter {
 	float: left;
 	text-align:center;

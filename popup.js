@@ -21,6 +21,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 document.addEventListener('DOMContentLoaded', () => {
 	getCurrentTabUrl((tgt) => {
+        $('#alert').css('visibility', 'hidden');
     	var textSpace = document.getElementById('text');
     	if (!(tgt === 'https://www.cardsphere.com/send')) {
     		// display error message if not on the cardsphere site
@@ -51,14 +52,11 @@ function savePackages() {
     });
 
     var d = new Date();
-    document.getElementById('alert').style.display = 'block';
-    $('#alert').text('Saved! At '+dateFormat(d.toString(), "dddd, mmmm dS, yyyy, h:MM:ss TT"));
-    $('#alert').hover(function() {
-        $(this).css('color', 'red');
-    });
-    $('#alert').click(function() {
-        document.getElementById('alert').style.display = 'none';
-    });
+    $('#alert').css('visibility', 'visible');
+    $('#alert').text('Saved!');
+    setTimeout(function() {
+        $('#alert').css('visibility', 'hidden');
+    }, 2000); 
 }
 
 // helper method

@@ -28,5 +28,4 @@ function save() {
   chrome.storage.local.set({'saved_last_accessed': d.toString()}, function() {});
   var time = settings+'_last_accessed'
   chrome.storage.local.set({[time]: d.toString()}, function() {});
-  console.log('Saved., yes!');
 }
