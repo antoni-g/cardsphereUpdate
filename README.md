@@ -5,16 +5,16 @@ Chrome plugin to improve <a href="https://www.cardsphere.com">Cardsphere</a> fun
 - each save stores 4 things in memory:
 
 ```javascript
-		- contents under 'saved'
-		- contents under '[hash of package settings]_saved'
-		- last accessed date under 'saved_last_accessed'
-		- last accessed date under '[hash of package settings_last_accessed'
+- contents under 'saved'
+- contents under '[hash of package settings]_saved'
+- last accessed date under 'saved_last_accessed'
+- last accessed date under '[hash of package settings_last_accessed'
 ```
 - contents object takes the form:
 ```javascript
 { contents: [hash of contents scraped from site],
-	price: [scraped from site],
-	efficiency: [scraped from site] }
+  price: [scraped from site],
+  efficiency: [scraped from site] }
 ```
 - each content object is stored as a value in the 'saved' or '[hash of package settings]_saved' against a key that is the scraped package username (this works functionally as a hash put/get)
 
