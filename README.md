@@ -24,6 +24,7 @@ Chrome plugin to improve <a href="https://www.cardsphere.com">Cardsphere</a> fun
 - enable/disable flags
 - enable/disable ok button
 - change coloring of highlights and flags
+- price threshold set between 0% and 100% to determine how much a price has to change before being highlighted/flagged
 
 ## Reach Goals
 - enable use of chrome sync storage for package contents - currently, saving has too many keys, maxing out seeming around 180 or so keys. Nesting keys one layer further inside object? Or is even with hashing this too much data to be stored over sync? 
