@@ -78,7 +78,8 @@ function modifyPackages() {
 	  				var price = $($(heading).children()[1]).find("strong").text();
 	  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
 	  				var parsedEffi = efficiency.trim().split(" ")[0].replace(/\n/g, '');
-	  				var contents =  $(value).find(".package-body").text();
+	  				// need to remove flags if present
+     				var contents =  $(value).find(".package-body").find('li').text();
 	  				contents = prepContents(contents);
 
 	  				// insert flag
