@@ -18,6 +18,10 @@ var autosave = false;
 var threshold = 2;
 var flagsInsert = true;
 
+// add overlay
+//$('#PriceExtensionContainer').before('<div class="overlay"></div>');
+
+
 chrome.storage.sync.get('settings', function(res) {
 	if (res.settings === undefined) {
 		// do nothing
@@ -201,7 +205,7 @@ function changePackage(value, user, update, flags) {
 	}
 	// OK button 
 	if (showOK) {
-		$(value).find('.button-div').prepend("<button type='button' id='"+id+"Button'class='send-button btn btn-primary'>OK</button>");
+		$(value).find('.button-div').prepend("<button type='button' id='"+id+"Button' class='send-button btn btn-primary'>OK</button>");
 		$('#'+id+"Button").click(function(){
 			// recolor
 			if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {

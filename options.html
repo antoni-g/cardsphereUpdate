@@ -9,14 +9,15 @@
 	
 </head>
 
-<body>
+<body class="bodySize">
+  <div class = "optionBox">
 		<div class="paddedBox">
 			<hr / class='vspacer'>
 			<h1>Options</h1>
 		</div>
-<div id='outer' class='outerBox'>
-	<div id='options' class='optionBox'>
-		<hr / class='divider'>
+    <hr / class='vspacer'>
+    <hr / class='vspacer'>
+		<hr / class='divider1'>
 		<hr / class='vspacer'>
 		<label class="slider_label">
   			Price Difference Threshold
@@ -27,7 +28,7 @@
   		</label>
   		<p><em>Since package values can change slightly as card indices update, this setting allows you set how much a package's price with otherwise saved contents has to change before it is highlighted again.</em></p>
   		<hr / class='vspacer'>
-  		<hr / class='divider'>
+  		<hr / class='divider1'>
   		<br />
 
   		<label class="control control--checkbox" for="okButton">
@@ -37,7 +38,7 @@
   		</label>
   		<p><em>The OK button displays on highlighted packages, allowing you to updated your saved packages and un-highlight them after review.</em></p>
   		<hr / class='vspacer'>
-  		<hr / class='divider'>
+  		<hr / class='divider1'>
   		<br />
 
   		<label class="control control--checkbox" for="flagButton">
@@ -47,7 +48,7 @@
   		</label>
   		<p><em>Flags display what changed since the package was updated by updating the package view and displaying changes.</em></p>
   		<hr / class='vspacer'>
-  		<hr / class='divider'>
+  		<hr / class='divider1'>
   		<br />
 
 
@@ -58,7 +59,7 @@
   		</label>
   		<p><em>Selecting this will only highlight new and updated packages when there is a set of saved packages for the exact package settings you have set on Cardsphere. You can turn this on or off at any time; any save notes Cardsphere settings and considers them only if this option is selected.</em></p>
   		<hr / class='vspacer'>
-  		<hr / class='divider'>
+  		<hr / class='divider1'>
   		<br />
 
   		<label class="control control--checkbox" for="autosave">
@@ -68,7 +69,7 @@
   		</label>
   		<p><em>With this selected, your saved packages will update as soon as you visit the Cardsphere send page.</em></p>
   		<hr / class='vspacer'>
-  		<hr / class='divider'>
+  		<hr / class='divider1'>
   		<br />
 
   		<label class="slider_label" for="colorSelectionOuter">Colors</label>
@@ -96,24 +97,22 @@
 			</div>
 			<hr / class='vspacer'>
 			<div id="colorInfo" class="infoOuter"> 
-			<div role="group" id='colorButtons' aria-label="Color buttons">
-		    	<button type="button" id='saveColor' class="btn">Save Colors</button>
-		    	<button type="button" id='default' class="btn">Default Colors</button>
-		  	</div>
+			  <div role="group" id='colorButtons' aria-label="Color buttons">
+		      <button type="button" id='saveColor' class="btn">Save Colors</button>
+		      <button type="button" id='default' class="btn">Default Colors</button>
+		    </div>
+      </div>  
+      <hr / class='vspacer'>
+		  <p><em>The displayed color of highlighted packages, flag, and date text can be changed. They can also be reverted back to their default yellows and red.</em></p>
+      <hr / class='vspacer'>
+      <hr / class='divider1'>
+      <br />
 
-		  	<p><em>The displayed color of highlighted packages, flag, and date text can be changed. They can also be reverted back to their default yellows and red.</em></p>
-	  	</div>
-		</div>	
-		<hr / class='vspacer'>
-		<hr / class='divider'>
-		<br />
-
-		<button type="button" id='revertDefault' class="btn">Revert Settings to Default</button>
-  		<br />
-  		<p><em>Please report any bugs, provide feedback, or suggest features at  <a href="mailto:akgdevelopment@gmail.com?subject=Feedback%20For%20CSUpdate!">akgdevelopment@gmail.com</a>!</em></p>
-  		<br/>
-	</div>		
-</div>
+      <button type="button" id='revertDefault' class="btn">Revert Settings to Default</button>
+      <br />
+      <p><em>Please report any bugs, provide feedback, or suggest features at  <a href="mailto:akgdevelopment@gmail.com?subject=Feedback%20For%20CSUpdate!">akgdevelopment@gmail.com</a>!</em></p>
+      <br/>	
+  </div>
 	<script src="options.js"></script>
 </body>
 </html>
