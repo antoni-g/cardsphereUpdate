@@ -59,7 +59,6 @@ function addListeners() {
 		$("#headingColor").prop('value',headingColor);
 		$("#bodyColor").prop('value',bodyColor);
 		$("#flagColor").prop('value',flagColor);
-		console.log(flagColor);
 		if (autosaving) {
 			$('#autosave').prop('checked', true);
 		}
