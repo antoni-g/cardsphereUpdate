@@ -8,7 +8,7 @@ Chrome plugin to improve <a href="https://www.cardsphere.com">Cardsphere</a> fun
 - contents under 'saved'
 - contents under '[hash of package settings]_saved'
 - last accessed date under 'saved_last_accessed'
-- last accessed date under '[hash of package settings_last_accessed]'
+- last accessed date under '[hash of package settings]_last_accessed'
 ```
 - contents object takes the form:
 ```
