@@ -87,7 +87,7 @@ function modifyPackages() {
 	  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
 	  				var parsedEffi = efficiency.trim().split(" ")[0].replace(/\n/g, '');
 	  				// need to remove flags if present
-     				var contents =  $(value).find(".package-body").find('li').text();
+     					var contents =  $(value).find(".package-body").find('li').text();
 	  				contents = prepContents(contents);
 
 	  				// insert flag
