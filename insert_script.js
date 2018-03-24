@@ -3,6 +3,10 @@
 var updated = false;
 var count = 0;
 
+// rename save button for clarification
+$('.save-button').css('width','118px');
+$('.save-button').first().html("Save Settings");
+
 // get settings, or use defaults
 var targetStored = 'saved';
 var showOK = true;

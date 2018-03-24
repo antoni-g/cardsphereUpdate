@@ -3,8 +3,8 @@
 
   "name": "Cardsphere Update",
   "description": "Streamlines your Cardsphere experience by highlighting updates each time you visit the send page.",
-  "version": "1.0.0",
-  "version_name": "1.0.0 beta",
+  "version": "1.0.1",
+  "version_name": "1.0.1 beta",
 
   "background":
     {
@@ -27,7 +27,6 @@
   },
   "permissions": [
     "activeTab",
-    "tabs",
     "storage",
     "unlimitedStorage"
   ],
