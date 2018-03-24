@@ -18,9 +18,7 @@ function save() {
       var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
       efficiency = efficiency.trim().split(" ")[0].replace(/\n/g, '');
       // need to remove flags if present
-      // get id
       var contents =  $(value).find(".package-body").find('li').text();
-
       contents = prepContents(contents);
       saved[username] = {'price': price, 'efficiency': efficiency,'contents': contents};
     });
