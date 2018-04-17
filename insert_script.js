@@ -15,8 +15,12 @@ var noData = false;
 var bodyColor = '#FCF3CF';
 var headingColor = '#f7dc6f';
 var flagColor = '#ff0000';
+var textColor = '#000000';
 var originalHeadingColor = $(".package-heading").not(".premium").first().css("background");
 var originalBodyColor = $(".package-body").first().css("background");
+$('.textarea').first().prop('color', '#feab3e');
+var originalItemColor;
+var originalBodyTextColor;
 // settings
 var autosave = false;
 var threshold = 2;
@@ -24,7 +28,6 @@ var flagsInsert = true;
 
 // add overlay
 //$('#PriceExtensionContainer').before('<div class="overlay"></div>');
-
 
 chrome.storage.sync.get('settings', function(res) {
 	if (res.settings === undefined) {
