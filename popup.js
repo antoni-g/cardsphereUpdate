@@ -59,7 +59,7 @@ function savePackages() {
     }, 2000); 
 }
 
-// helper method
+// helper method for debug
 function printMem() {
     console.log('printing mem');
     chrome.storage.local.get(null, function(res) {

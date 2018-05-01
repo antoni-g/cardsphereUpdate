@@ -5,8 +5,29 @@ $color--black = #000000
 $color--light-grey = #E6E6E6
 $color--grey = #CCCCCC
 $color--dark-grey = #7B7B7B
-$color--primary = #2AA1C0
-$color--secondary = #0E647D
+$color--primary = #c02a2a
+$color--secondary = #7c0d0d
+
+.popupBorder {
+	padding: 12px;
+}
+
+.popupText {
+	border-style: solid;
+    border-width: 5px;
+    border-color: black;
+	padding: 12px;
+	width: 300px; 
+    height: 100px; 
+}
+
+.popupHeading {
+	padding: 6px;
+	height: 45px;
+	width: 300px;
+	color:#ffffff;
+	background:#000000;
+}
 
 .overlay {
     position: fixed; /* Sit on top of the page content */
@@ -118,7 +139,7 @@ p {
     width: 25px;
     height: 25px;
     border-radius: 50%; 
-    background: #2aa1c0;
+    background: #c02a2a;
     cursor: pointer;
 }
 
@@ -126,7 +147,7 @@ p {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #0e647d;
+    background: #7c0d0d; 
     cursor: pointer;
 }
 .slider_label{
@@ -181,11 +202,11 @@ p {
   background: #ccc;
 }
 .control input:checked ~ .control__indicator {
-  background: #2aa1c0;
+  background: #c02a2a;
 }
 .control:hover input:not([disabled]):checked ~ .control__indicator,
 .control input:checked:focus ~ .control__indicator {
-  background: #0e647d;
+  background: #7c0d0d;
 }
 .control input:disabled ~ .control__indicator {
   background: #e6e6e6;

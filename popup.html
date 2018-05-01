@@ -4,20 +4,13 @@
  -->
 <html>
   <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <meta charset="utf-8">
+
     <link rel='stylesheet' href='styles.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    
 
     <title>CSUpdates</title>
-    <style type="text/css">
-      body {
-        margin: 10px;
-        white-space: nowrap;
-      }
-
-      h1 {
-        font-size: 15px;
-      }
-    </style>
     <script src="jquery-3.2.1.min.js"></script>
     <script src="dateformat.js"></script>
     <script type='text/javascript' src="popup.js"></script>
@@ -25,25 +18,25 @@
   </head>
 
   <body>
-  <div id="outer centered">
-    <h1>Cardsphere Updates</h1>
-    <div id="text">
-      <!-- this will contain the error message, if necessary -->
+  <div class="popupBorder">
+    <div id="heading" class="popupHeading">
+      <p style="font-size:20px;">Cardsphere Updates</p>
     </div>
-    <div id="buttons" style="display: none;">
-      <!-- hidden if not on the correct page -->
-      <div class="btn-group">
-        <a id="save" href="#" class="btn btn-primary">Store</a>
+    <div id="content" class="popupText">
+      <div id="text">
+        <!-- this will contain the error message, if necessary -->
       </div>
-      <div class="btn-group" id="testing">
-        <a id="disp_mem" href="#" class="btn btn-primary">Print</a>
-      </div>
-      <div class="btn-group">
-        <a id="options" href="#" class="btn btn-primary">Options</a>
-      </div>
-      <div id='alert'>
-        Saved!
-        <!-- hidden if not on the correct page -->
+      <div id="buttons" style="display: none;">
+        <hr / class='vspacer'>
+        <div class="btn-group" role="group">
+          <!-- hidden if not on the correct page -->
+          <button class="btn" type="btn" id="save">Save Packages</button>
+          <div id='alert'>
+            Saved!
+          </div>
+          <button class="btn" type="btn" id="options">Options</button>
+          <hr / class='vspacer'>
+        </div>
       </div>
     </div>
   </div>
