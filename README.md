@@ -36,3 +36,4 @@ Chrome plugin to improve <a href="https://www.cardsphere.com">Cardsphere</a> fun
 
 ## Published Versions
 - 2018-3-24 - published initial beta, missing front end
+- 2018-5-9 - published first public release
