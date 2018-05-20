@@ -123,7 +123,7 @@ function modifyPackages() {
 	  				}
 	  				else {
 	  					// then efficiency 
-		  				if (res[targetStored][username].efficiency.trim().split(" ")[0] !== parsedEffi) {
+		  				if (res[targetStored][username].efficiency.trim().split(" ")[0] > parsedEffi) {
 		  					changing = true;
 		  					updated = true;
 							count++;
@@ -133,7 +133,19 @@ function modifyPackages() {
 							console.log("stored vs actual");
 							console.log(res[targetStored][username].efficiency.trim().split(" ")[0]);
 							console.log(parsedEffi);
-							flags[index] = "Efficiency";
+							flags[index] = "Efficiency Decrease";
+		  				}
+		  				else if (res[targetStored][username].efficiency.trim().split(" ")[0] < parsedEffi) {
+		  					changing = true;
+		  					updated = true;
+							count++;
+							// insert flag
+							index++;
+							console.log("flag for " + username);
+							console.log("stored vs actual");
+							console.log(res[targetStored][username].efficiency.trim().split(" ")[0]);
+							console.log(parsedEffi);
+							flags[index] = "Efficiency Increase";
 		  				}
 		  				// else check package contents (is this going to be too slow?)
 		  				if (res[targetStored][username].contents !== contents) {
@@ -148,10 +160,10 @@ function modifyPackages() {
 							console.log("stored vs actual");
 							console.log(res[targetStored][username].contents);
 							console.log(contents);
-							flags[index] = "Contents";
+							flags[index] = "Contents Changed";
 		  				}
 		  				// then finally, price
-		  				if ((priceParsed > upperBound) || (priceParsed < lowerBound)) {
+		  				if (priceParsed > upperBound) {
 		  					if (!changing) {
 		  						count++;
 		  						changing = true;
@@ -163,8 +175,23 @@ function modifyPackages() {
 							console.log("stored vs actual");
 							console.log(upperBound + ", " + lowerBound);
 							console.log(priceParsed);
-							flags[index] = "Price";
+							flags[index] = "Price Increase";
 		  				}
+		  				else if (priceParsed < lowerBound) {
+		  					if (!changing) {
+		  						count++;
+		  						changing = true;
+		  						updated = true;
+		  					}
+							// insert flag
+							index++;
+							console.log("flag for " + username);
+							console.log("stored vs actual");
+							console.log(upperBound + ", " + lowerBound);
+							console.log(priceParsed);
+							flags[index] = "Price Decrease";
+		  				}
+
 	  				}
 	  				if (changing) {
 		  				// then  change color of package
