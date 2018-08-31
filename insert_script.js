@@ -16,11 +16,11 @@ var bodyColor = '#FCF3CF';
 var headingColor = '#f7dc6f';
 var flagColor = '#ff0000';
 var textColor = '#000000';
-var originalHeadingColor = $(".package-heading").not(".premium").first().css("background");
-var originalBodyColor = $(".package-body").first().css("background");
 $('.textarea').first().prop('color', '#feab3e');
 var originalItemColor;
 var originalBodyTextColor;
+var originalHeadingColor;
+var originalBodyColor;
 // settings
 var autosave = false;
 var threshold = 2;
@@ -72,9 +72,7 @@ $.fn.exists = function () {
 }
 
 function waitUntilElExists(el,time,sel,callback) {
-	console.log(sel+el);
 	if ($(""+sel+el).exists()) {
-		console.log("finally exists!");
 		callback();
 		return true;
 	}
@@ -100,9 +98,10 @@ function modifyPackages() {
 			// iterate through each package listed on CS and lookup in returned hashmap
 			$(document).ready(function () {
 				// block to wait for packages GET to render
-				console.log($(".package").exists());
 				waitUntilElExists("package",500,".",function(){
-					console.log("successfully waited for packages");
+					// once packages are loaded, scrape original color
+					originalHeadingColor = $(".package-heading").not(".premium").first().css("background");
+					originalBodyColor = $(".package-body").first().css("background");
 
 		  			$(".package").each(function(index,value) {
 		  				// check by heading
@@ -153,10 +152,10 @@ function modifyPackages() {
 								count++;
 								// insert flag
 								index++;
-								console.log("flag for " + username);
-								console.log("stored vs actual");
-								console.log(res[targetStored][username].efficiency.trim().split(" ")[0]);
-								console.log(parsedEffi);
+								// console.log("flag for " + username);
+								// console.log("stored vs actual");
+								// console.log(res[targetStored][username].efficiency.trim().split(" ")[0]);
+								// console.log(parsedEffi);
 								flags[index] = "Efficiency Decrease";
 			  				}
 			  				else if (res[targetStored][username].efficiency.trim().split(" ")[0] < parsedEffi) {
@@ -165,10 +164,10 @@ function modifyPackages() {
 								count++;
 								// insert flag
 								index++;
-								console.log("flag for " + username);
-								console.log("stored vs actual");
-								console.log(res[targetStored][username].efficiency.trim().split(" ")[0]);
-								console.log(parsedEffi);
+								// console.log("flag for " + username);
+								// console.log("stored vs actual");
+								// console.log(res[targetStored][username].efficiency.trim().split(" ")[0]);
+								// console.log(parsedEffi);
 								flags[index] = "Efficiency Increase";
 			  				}
 			  				// else check package contents (is this going to be too slow?)
@@ -180,10 +179,10 @@ function modifyPackages() {
 			  					}
 								// insert flag
 								index++;
-								console.log("flag for " + username);
-								console.log("stored vs actual");
-								console.log(res[targetStored][username].contents);
-								console.log(contents);
+								// console.log("flag for " + username);
+								// console.log("stored vs actual");
+								// console.log(res[targetStored][username].contents);
+								// console.log(contents);
 								flags[index] = "Contents Changed";
 			  				}
 			  				// then finally, price
@@ -195,10 +194,10 @@ function modifyPackages() {
 			  					}
 								// insert flag
 								index++;
-								console.log("flag for " + username);
-								console.log("stored vs actual");
-								console.log(upperBound + ", " + lowerBound);
-								console.log(priceParsed);
+								// console.log("flag for " + username);
+								// console.log("stored vs actual");
+								// console.log(upperBound + ", " + lowerBound);
+								// console.log(priceParsed);
 								flags[index] = "Price Increase";
 			  				}
 			  				else if (priceParsed < lowerBound) {
@@ -209,10 +208,10 @@ function modifyPackages() {
 			  					}
 								// insert flag
 								index++;
-								console.log("flag for " + username);
-								console.log("stored vs actual");
-								console.log(upperBound + ", " + lowerBound);
-								console.log(priceParsed);
+								// console.log("flag for " + username);
+								// console.log("stored vs actual");
+								// console.log(upperBound + ", " + lowerBound);
+								// console.log(priceParsed);
 								flags[index] = "Price Decrease";
 			  				}
 
@@ -221,7 +220,7 @@ function modifyPackages() {
 			  				// then  change color of package
 			  				update = {'price': price, 'efficiency': parsedEffi,'contents': contents};
 			  				// construct flag
-			  				console.log(flags)
+			  				// console.log(flags)
 			  				var flagString = "Changes: ";
 			  				if (flags[0] == "Unsaved Package") {
 			  					flagString = flags[0];
@@ -233,7 +232,7 @@ function modifyPackages() {
 			  					}
 			  					flagString += flags[index];
 			  				}
-			  				console.log(flagString)
+			  				// console.log(flagString)
 			  				changePackage(value, username, update, flagString);
 			  			}
 		  			});
@@ -314,7 +313,6 @@ function insertDate() {
 			msg = "<span class='caret'></span> Package Controls <font color='"+flagColor+"'>(Packages last saved on "+time+". There are "+count+" new or different packages.)</font>";
 		}
 		waitUntilElExists("collapsible-anchor",500,".",function(){
-			console.log("successfully waited for top");
 			$('.collapsible-anchor').html(msg);
 		});
 		
