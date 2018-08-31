@@ -71,16 +71,16 @@ $.fn.exists = function () {
     return this.length !== 0;
 }
 
-function waitUntilElExists(el,time,sel) {
+function waitUntilElExists(el,time,sel,callback) {
 	console.log(sel+el);
 	if ($(""+sel+el).exists()) {
 		console.log("finally exists!");
-		return;
+		callback();
+		return true;
 	}
 	else {
 		setTimeout(function() {
-			console.log("timeout")
-			waitUntilElExists(el,time,sel);
+			waitUntilElExists(el,time,sel,callback);
 		}, time);
 	}
 }
@@ -99,144 +99,145 @@ function modifyPackages() {
 		else {
 			// iterate through each package listed on CS and lookup in returned hashmap
 			$(document).ready(function () {
-				console.log("here");
-				console.log($(".package"));
+				// block to wait for packages GET to render
 				console.log($(".package").exists());
-				waitUntilElExists("package",500,".");
+				waitUntilElExists("package",500,".",function(){
+					console.log("successfully waited for packages");
 
-	  			$(".package").each(function(index,value) {
-	  				// check by heading
-	  				var heading = $(value).find(".package-heading");
-	  				var changing = false;
-	  				// find elements
-	  				var username = $($(heading).children()[0]).find("a").text();
-	  				var price = $($(heading).children()[1]).find("strong").text();
-	  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
-	  				var parsedEffi = efficiency.trim().split(" ")[0].replace(/\n/g, '');
-	  				// need to remove flags if present
-     					var contents =  $(value).find(".package-body").find('li').text();
-	  				contents = prepContents(contents);
+		  			$(".package").each(function(index,value) {
+		  				// check by heading
+		  				var heading = $(value).find(".package-heading");
+		  				var changing = false;
+		  				// find elements
+		  				var username = $($(heading).children()[0]).find("a").text();
+		  				var price = $($(heading).children()[1]).find("strong").text();
+		  				var efficiency = $($(heading).children()[1]).find(".efficiency-index").text();
+		  				var parsedEffi = efficiency.trim().split(" ")[0].replace(/\n/g, '');
+		  				// need to remove flags if present
+	     				var contents =  $(value).find(".package-body").find('li').text();
+		  				contents = prepContents(contents);
 
-	  				// insert flag
-	  				var flags = {};
-	  				var index = -1;
-	  				// price thresholding
-	  				var present = false;
-	  				var ogPrice;
-	  				var thresh;
-	  				var upperBound;
-	  				var lowerBound;
-	  				var priceParsed;
-	  				if (res[targetStored][username] !== undefined) {
-	  					present = true;
-	  					ogPrice = res[targetStored][username].price;
-	  					ogPrice = Number(ogPrice.replace(/[^0-9\.-]+/g,""));
-	  					thresh = threshold*5/100;
-	  					upperBound = ogPrice+(ogPrice*thresh);
-	  					lowerBound = ogPrice-(ogPrice*thresh);
-	  					priceParsed = Number(price.replace(/[^0-9\.-]+/g,""));
-	  				}
-	  				// first check user
-	  				if (!present) {
-	  					changing = true;
-	  					updated = true;
-						count++;
-						// insert flag
-						index++;
-						flags[index] = "Unsaved Package";
-	  				}
-	  				else {
-	  					// then efficiency 
-		  				if (res[targetStored][username].efficiency.trim().split(" ")[0] > parsedEffi) {
+		  				// insert flag
+		  				var flags = {};
+		  				var index = -1;
+		  				// price thresholding
+		  				var present = false;
+		  				var ogPrice;
+		  				var thresh;
+		  				var upperBound;
+		  				var lowerBound;
+		  				var priceParsed;
+		  				if (res[targetStored][username] !== undefined) {
+		  					present = true;
+		  					ogPrice = res[targetStored][username].price;
+		  					ogPrice = Number(ogPrice.replace(/[^0-9\.-]+/g,""));
+		  					thresh = threshold*5/100;
+		  					upperBound = ogPrice+(ogPrice*thresh);
+		  					lowerBound = ogPrice-(ogPrice*thresh);
+		  					priceParsed = Number(price.replace(/[^0-9\.-]+/g,""));
+		  				}
+		  				// first check user
+		  				if (!present) {
 		  					changing = true;
 		  					updated = true;
 							count++;
 							// insert flag
 							index++;
-							console.log("flag for " + username);
-							console.log("stored vs actual");
-							console.log(res[targetStored][username].efficiency.trim().split(" ")[0]);
-							console.log(parsedEffi);
-							flags[index] = "Efficiency Decrease";
+							flags[index] = "Unsaved Package";
 		  				}
-		  				else if (res[targetStored][username].efficiency.trim().split(" ")[0] < parsedEffi) {
-		  					changing = true;
-		  					updated = true;
-							count++;
-							// insert flag
-							index++;
-							console.log("flag for " + username);
-							console.log("stored vs actual");
-							console.log(res[targetStored][username].efficiency.trim().split(" ")[0]);
-							console.log(parsedEffi);
-							flags[index] = "Efficiency Increase";
-		  				}
-		  				// else check package contents (is this going to be too slow?)
-		  				if (res[targetStored][username].contents !== contents) {
-		  					if (!changing) {
-		  						count++;
-		  						changing = true;
-		  						updated = true;
-		  					}
-							// insert flag
-							index++;
-							console.log("flag for " + username);
-							console.log("stored vs actual");
-							console.log(res[targetStored][username].contents);
-							console.log(contents);
-							flags[index] = "Contents Changed";
-		  				}
-		  				// then finally, price
-		  				if (priceParsed > upperBound) {
-		  					if (!changing) {
-		  						count++;
-		  						changing = true;
-		  						updated = true;
-		  					}
-							// insert flag
-							index++;
-							console.log("flag for " + username);
-							console.log("stored vs actual");
-							console.log(upperBound + ", " + lowerBound);
-							console.log(priceParsed);
-							flags[index] = "Price Increase";
-		  				}
-		  				else if (priceParsed < lowerBound) {
-		  					if (!changing) {
-		  						count++;
-		  						changing = true;
-		  						updated = true;
-		  					}
-							// insert flag
-							index++;
-							console.log("flag for " + username);
-							console.log("stored vs actual");
-							console.log(upperBound + ", " + lowerBound);
-							console.log(priceParsed);
-							flags[index] = "Price Decrease";
-		  				}
+		  				else {
+		  					// then efficiency 
+			  				if (res[targetStored][username].efficiency.trim().split(" ")[0] > parsedEffi) {
+			  					changing = true;
+			  					updated = true;
+								count++;
+								// insert flag
+								index++;
+								console.log("flag for " + username);
+								console.log("stored vs actual");
+								console.log(res[targetStored][username].efficiency.trim().split(" ")[0]);
+								console.log(parsedEffi);
+								flags[index] = "Efficiency Decrease";
+			  				}
+			  				else if (res[targetStored][username].efficiency.trim().split(" ")[0] < parsedEffi) {
+			  					changing = true;
+			  					updated = true;
+								count++;
+								// insert flag
+								index++;
+								console.log("flag for " + username);
+								console.log("stored vs actual");
+								console.log(res[targetStored][username].efficiency.trim().split(" ")[0]);
+								console.log(parsedEffi);
+								flags[index] = "Efficiency Increase";
+			  				}
+			  				// else check package contents (is this going to be too slow?)
+			  				if (res[targetStored][username].contents !== contents) {
+			  					if (!changing) {
+			  						count++;
+			  						changing = true;
+			  						updated = true;
+			  					}
+								// insert flag
+								index++;
+								console.log("flag for " + username);
+								console.log("stored vs actual");
+								console.log(res[targetStored][username].contents);
+								console.log(contents);
+								flags[index] = "Contents Changed";
+			  				}
+			  				// then finally, price
+			  				if (priceParsed > upperBound) {
+			  					if (!changing) {
+			  						count++;
+			  						changing = true;
+			  						updated = true;
+			  					}
+								// insert flag
+								index++;
+								console.log("flag for " + username);
+								console.log("stored vs actual");
+								console.log(upperBound + ", " + lowerBound);
+								console.log(priceParsed);
+								flags[index] = "Price Increase";
+			  				}
+			  				else if (priceParsed < lowerBound) {
+			  					if (!changing) {
+			  						count++;
+			  						changing = true;
+			  						updated = true;
+			  					}
+								// insert flag
+								index++;
+								console.log("flag for " + username);
+								console.log("stored vs actual");
+								console.log(upperBound + ", " + lowerBound);
+								console.log(priceParsed);
+								flags[index] = "Price Decrease";
+			  				}
 
-	  				}
-	  				if (changing) {
-		  				// then  change color of package
-		  				update = {'price': price, 'efficiency': parsedEffi,'contents': contents};
-		  				// construct flag
-		  				console.log(flags)
-		  				var flagString = "Changes: ";
-		  				if (flags[0] == "Unsaved Package") {
-		  					flagString = flags[0];
 		  				}
-		  				else  {
-		  					for (var i = 0; i < index; i++) {
-		  						flagString += flags[i];
-		  						flagString += ", ";
-		  					}
-		  					flagString += flags[index];
-		  				}
-		  				console.log(flagString)
-		  				changePackage(value, username, update, flagString);
-		  			}
-	  			});
+		  				if (changing) {
+			  				// then  change color of package
+			  				update = {'price': price, 'efficiency': parsedEffi,'contents': contents};
+			  				// construct flag
+			  				console.log(flags)
+			  				var flagString = "Changes: ";
+			  				if (flags[0] == "Unsaved Package") {
+			  					flagString = flags[0];
+			  				}
+			  				else  {
+			  					for (var i = 0; i < index; i++) {
+			  						flagString += flags[i];
+			  						flagString += ", ";
+			  					}
+			  					flagString += flags[index];
+			  				}
+			  				console.log(flagString)
+			  				changePackage(value, username, update, flagString);
+			  			}
+		  			});
+				});
 				// once done, insert the last saved date
 				insertDate();
 				// finally, autosave if necessary 
@@ -312,8 +313,11 @@ function insertDate() {
 		else {
 			msg = "<span class='caret'></span> Package Controls <font color='"+flagColor+"'>(Packages last saved on "+time+". There are "+count+" new or different packages.)</font>";
 		}
-		waitUntilElExists("collapsible-anchor",500,".");
-		$('.collapsible-anchor').html(msg);
+		waitUntilElExists("collapsible-anchor",500,".",function(){
+			console.log("successfully waited for top");
+			$('.collapsible-anchor').html(msg);
+		});
+		
 	});
 }
 
