@@ -66,6 +66,25 @@ chrome.storage.sync.get('settings', function(res) {
 	modifyPackages();
 });
 
+// lil helpers
+$.fn.exists = function () {
+    return this.length !== 0;
+}
+
+function waitUntilElExists(el,time,sel) {
+	console.log(sel+el);
+	if ($(""+sel+el).exists()) {
+		console.log("finally exists!");
+		return;
+	}
+	else {
+		setTimeout(function() {
+			console.log("timeout")
+			waitUntilElExists(el,time,sel);
+		}, time);
+	}
+}
+
 function modifyPackages() {
 	chrome.storage.local.get(targetStored, function(res) {
 		// error check, see if there is no data in storage, else retreive date
@@ -80,6 +99,11 @@ function modifyPackages() {
 		else {
 			// iterate through each package listed on CS and lookup in returned hashmap
 			$(document).ready(function () {
+				console.log("here");
+				console.log($(".package"));
+				console.log($(".package").exists());
+				waitUntilElExists("package",500,".");
+
 	  			$(".package").each(function(index,value) {
 	  				// check by heading
 	  				var heading = $(value).find(".package-heading");
@@ -288,8 +312,8 @@ function insertDate() {
 		else {
 			msg = "<span class='caret'></span> Package Controls <font color='"+flagColor+"'>(Packages last saved on "+time+". There are "+count+" new or different packages.)</font>";
 		}
-		var top = document.getElementById('filter-btn');
-		top.innerHTML = msg;
+		waitUntilElExists("collapsible-anchor",500,".");
+		$('.collapsible-anchor').html(msg);
 	});
 }
 
