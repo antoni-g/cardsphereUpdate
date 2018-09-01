@@ -236,13 +236,14 @@ function modifyPackages() {
 			  				changePackage(value, username, update, flagString);
 			  			}
 		  			});
+					// once done, insert the last saved date
+					insertDate();
+					// finally, autosave if necessary 
+					if (autosave) {
+						chrome.runtime.sendMessage({func: "autosave"}, function(response) {});
+					}
 				});
-				// once done, insert the last saved date
-				insertDate();
-				// finally, autosave if necessary 
-				if (autosave) {
-					chrome.runtime.sendMessage({func: "autosave"}, function(response) {});
-				}
+				
 			});
 		}
 	});

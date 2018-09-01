@@ -37,4 +37,6 @@ Chrome plugin to improve <a href="https://www.cardsphere.com">Cardsphere</a> fun
 ## Published Versions
 - 2018-3-24 - published initial beta, missing front end - 1.0.1
 - 2018-5-9 - published first public release - 1.1.1
-- 2018-5-20 - published first public release updated; detail added to package flags - 1.1.2
+- 2018-5-20 - published first public release update; detail added to package flags - 1.1.2
+- 2018-8-31 - published patch with the restructuring of the Send page on Cardsphere - 1.2.0
+- 2018-9-1 - publish small fix to laast patch - 1.2.1
