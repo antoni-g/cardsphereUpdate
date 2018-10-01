@@ -264,7 +264,7 @@ function changePackage(value, user, update, flags) {
 	}
 	// OK button 
 	if (showOK) {
-		$(value).find('.button-div').prepend("<button type='button' id='"+id+"Button' class='send-button btn btn-primary'>OK</button>");
+		$(value).find('.button-div').prepend("<button type='button' id='"+id+"Button' class='send-button btn btn-primary'>OK</button><div style='width:5px; height:auto; display:inline-block;'></div>");
 		$('#'+id+"Button").click(function(){
 			// recolor
 			if (!($(value.firstElementChild).attr('class') === 'package-heading premium')) {

@@ -40,3 +40,4 @@ Chrome plugin to improve <a href="https://www.cardsphere.com">Cardsphere</a> fun
 - 2018-5-20 - published first public release update; detail added to package flags - 1.1.2
 - 2018-8-31 - published patch with the restructuring of the Send page on Cardsphere - 1.2.0
 - 2018-9-1 - publish small fix to laast patch - 1.2.1
+- 2018-10-1 - published a tiny aesthetic upgrade to injected html/css - 1.2.2
