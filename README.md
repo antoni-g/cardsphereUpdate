@@ -2,7 +2,7 @@
 Chrome plugin to improve <a href="https://www.cardsphere.com">Cardsphere</a> functionality. This plugin highlights new packages on the send page, allowing the user to review and update their saved contents for a comparison with the send page at a later time. Various options allow the user top customize their own experience as well.
 
 ## Saving Mechanism
-- each save stores 4 things in memory:
+- each save stores 4 things in local Chrome memory:
 
 ```
 - contents under 'saved'
