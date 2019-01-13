@@ -35,9 +35,9 @@ Chrome plugin to improve <a href="https://www.cardsphere.com">Cardsphere</a> fun
 - ~~Hash saved by contents with the 'save.js' method differ from those generated when compared saved with 'insert_script.js', leading to flags~~ *(Fixed 2/27/2018, 24765015436a1476c8662e51b7bb2fef75dbc69b. Package selector was grabbing flags - workaround by selecting only specific children containing package contents)*.
 
 ## Published Versions
-**1.0.1** - 2018-3-24 - initial beta, missing front end 
-**1.1.1** - 2018-5-9 - first public release 
-**1.1.2** - 2018-5-20 - first public release update; detail added to package flags 
-**1.2.0** - 2018-8-31 - patch to accomodate the organizational restructuring of the Send page on Cardsphere 
-**1.2.1** - 2018-9-1 - small fix to last patch 
-**1.2.2** - 2018-10-1 - a tiny aesthetic upgrade to injected html/css 
+- **1.0.1** - 2018-3-24 - initial beta, missing front end 
+- **1.1.1** - 2018-5-9 - first public release 
+- **1.1.2** - 2018-5-20 - first public release update; detail added to package flags 
+- **1.2.0** - 2018-8-31 - patch to accomodate the organizational restructuring of the Send page on Cardsphere 
+- **1.2.1** - 2018-9-1 - small fix to last patch 
+- **1.2.2** - 2018-10-1 - a tiny aesthetic upgrade to injected html/css 
