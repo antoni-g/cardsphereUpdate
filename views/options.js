@@ -8,8 +8,9 @@ var showOK = true;
 var threshVal = 2;
 var flags = true;
 chrome.storage.sync.get('settings', function(res) {
+	console.log(res.settings)
 	// first, if no settings are saved, save defaults
-	if (res === undefined) {
+	if (res.settings === undefined) {
 		chrome.storage.sync.set({'settings': {'body': '#FCF3CF',
 													  'heading': '#f7dc6f',
 													  'flagColor': '#ff0000',
