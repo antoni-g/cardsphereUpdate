@@ -2,7 +2,7 @@
 Chrome plugin to improve <a href="https://www.cardsphere.com">Cardsphere</a> functionality. This plugin highlights new packages on the send page, allowing the user to review and update their saved contents for a comparison with the send page at a later time. Various options allow the user top customize their own experience as well.
 
 ## Saving Mechanism
-- each save stores 4 things in memory:
+- each save stores 4 things in local Chrome memory:
 
 ```
 - contents under 'saved'
@@ -35,9 +35,10 @@ Chrome plugin to improve <a href="https://www.cardsphere.com">Cardsphere</a> fun
 - ~~Hash saved by contents with the 'save.js' method differ from those generated when compared saved with 'insert_script.js', leading to flags~~ *(Fixed 2/27/2018, 24765015436a1476c8662e51b7bb2fef75dbc69b. Package selector was grabbing flags - workaround by selecting only specific children containing package contents)*.
 
 ## Published Versions
-- 2018-3-24 - published initial beta, missing front end - 1.0.1
-- 2018-5-9 - published first public release - 1.1.1
-- 2018-5-20 - published first public release update; detail added to package flags - 1.1.2
-- 2018-8-31 - published patch with the restructuring of the Send page on Cardsphere - 1.2.0
-- 2018-9-1 - publish small fix to laast patch - 1.2.1
-- 2018-10-1 - published a tiny aesthetic upgrade to injected html/css - 1.2.2
+- **1.0.1** - 2018-03-24 - initial beta, missing front end 
+- **1.1.1** - 2018-05-09 - first public release 
+- **1.1.2** - 2018-05-20 - first public release update; detail added to package flags 
+- **1.2.0** - 2018-08-31 - patch to accomodate the organizational restructuring of the Send page on Cardsphere 
+- **1.2.1** - 2018-09-01 - small fix to last patch 
+- **1.2.2** - 2018-10-01 - a tiny aesthetic upgrade to injected html/css 
+- **1.3.0** - 2019-01-16 - updated flag front end, organized file structure
